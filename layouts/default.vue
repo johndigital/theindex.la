@@ -1,6 +1,8 @@
 <template>
     <div :class="classes">
+        <site-header />
         <nuxt />
+        <site-sidebar />
     </div>
 </template>
 

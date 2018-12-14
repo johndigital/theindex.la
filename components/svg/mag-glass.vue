@@ -1,0 +1,31 @@
+<template functional>
+    <svg
+        class="svg-mag-glass"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        height="22px"
+        width="22px"
+        x="0px"
+        y="0px"
+        viewBox="0 0 20.24 21.23"
+        xml:space="preserve"
+    >
+        <circle
+            fill="none"
+            stroke="#000000"
+            stroke-width="2"
+            cx="9"
+            cy="9"
+            r="8"
+        />
+        <line
+            fill="none"
+            stroke="#000000"
+            stroke-width="2"
+            x1="14.14"
+            y1="15.13"
+            x2="19.53"
+            y2="20.52"
+        />
+    </svg>
+</template>

@@ -8,7 +8,8 @@ const createStore = () => {
             browser
         },
         state: {
-            pageData: {}
+            pageData: {},
+            sidebarOpen: false
         },
         mutations: {
             SET_PAGE_DATA: (state, { key, data }) => {
