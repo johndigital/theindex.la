@@ -17,6 +17,12 @@ const createStore = () => {
             },
             REMOVE_PAGE_DATA: (state, key) => {
                 Vue.delete(state.pageData, key)
+            },
+            OPEN_SIDEBAR: state => {
+                state.sidebarOpen = true
+            },
+            CLOSE_SIDEBAR: state => {
+                state.sidebarOpen = false
             }
         },
         actions: {}

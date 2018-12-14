@@ -28,6 +28,7 @@ export default {
                 'container',
                 `route-${_kebabCase(this.$route.name)}`,
                 `breakpoint-${this.$store.getters.breakpoint}`,
+                { 'sidebar-open': this.$store.state.sidebarOpen },
                 { 'is-touch': this.$store.state.browser.hasTouch },
                 { 'not-touch': !this.$store.state.browser.hasTouch },
                 { 'fonts-loading': this.$store.state.browser.fontsLoading },
@@ -42,5 +43,11 @@ export default {
 @import '../assets/scss/vars';
 
 .container {
+    main {
+        transition: margin-left 400ms $easeInOutQuad;
+    }
+    &.sidebar-open main {
+        margin-left: 320px;
+    }
 }
 </style>

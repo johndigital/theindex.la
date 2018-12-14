@@ -1,7 +1,5 @@
 <template>
-    <main class="front-page">
-        The Index
-    </main>
+    <main class="front-page"><div class="inner">Front Page</div></main>
 </template>
 
 <script>
@@ -25,5 +23,9 @@ export default {
 @import '../assets/scss/vars';
 
 main.front-page {
+    .inner {
+        background-color: #f1f1f1;
+        margin: 100px $desktop-padding 50px;
+    }
 }
 </style>
