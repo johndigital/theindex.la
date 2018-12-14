@@ -37,7 +37,7 @@ module.exports = {
         vendor: ['lodash/get', 'lodash/throttle', 'popmotion']
     },
     generate: {
-        routes: require('./bin/generateRoutes').default,
+        // routes: require('./bin/generateRoutes').default,
         dir: 'dist',
         fallback: '404.html'
     },

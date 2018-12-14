@@ -31,11 +31,12 @@
         "nuxt": "^2.3.2",
         "popmotion": "^8.5.3",
         "prismic-dom": "^2.1.0",
-        "prismic-javascript": "^1.5.0",
+        "prismic-javascript": "^2.0.1",
         "string.prototype.includes": "^1.0.0"
     },
     "devDependencies": {
         "babel-polyfill": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
         "babel-register": "^6.26.0",
         "css-loader": "^1.0.1",
         "node-sass": "^4.10.0",

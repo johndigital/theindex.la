@@ -8,7 +8,7 @@
 
 <script>
 import linkResolver from '~/libs/prismic/linkResolver'
-import prismic from '~/libs/prismic'
+// import prismic from '~/libs/prismic'
 import PrismicDOM from 'prismic-dom'
 
 export default {
