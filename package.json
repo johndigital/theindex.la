@@ -1,0 +1,46 @@
+{
+    "name": "theindex.la",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Statically generated website powering theindex.la",
+    "scripts": {
+        "dev": "nuxt",
+        "generate": "nuxt generate",
+        "build": "nuxt build",
+        "start": "nuxt start"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/johndigital/theindex.la.git"
+    },
+    "author": "John Robson <j@hn.digital> (https://john.digital)",
+    "contributors": [
+        "Brandon Lee Kitajchuk <kitajchuk@gmail.com> (http://kitajchuk.com)"
+    ],
+    "license": "ISC",
+    "homepage": "https://theindex.la",
+    "dependencies": {
+        "fh-components": "^1.4.11",
+        "fontfaceobserver": "^2.0.13",
+        "lodash": "^4.17.11",
+        "nuxt": "^2.3.2",
+        "popmotion": "^8.5.3",
+        "prismic-dom": "^2.1.0",
+        "prismic-javascript": "^1.5.0",
+        "string.prototype.includes": "^1.0.0"
+    },
+    "devDependencies": {
+        "babel-polyfill": "^6.26.0",
+        "babel-register": "^6.26.0",
+        "css-loader": "^1.0.1",
+        "node-sass": "^4.10.0",
+        "prettier": "^1.15.3",
+        "sass-loader": "^7.1.0",
+        "vue-style-loader": "^4.1.2"
+    }
+}

@@ -1,0 +1,25 @@
+@import 'vars';
+
+body {
+    font-family: $font-body;
+    background-color: $white;
+    font-size: 18px;
+    margin: 0;
+    -webkit-font-smoothing: antialiased !important;
+    text-rendering: optimizeLegibility !important;
+}
+a {
+    color: $black;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+    margin: 0;
+}
+// ::-webkit-scrollbar {
+//     display: none;
+// }
