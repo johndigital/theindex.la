@@ -4,7 +4,7 @@ import Vue from 'vue'
 
 export default ({ store }, inject) => {
     // external components
-    // Vue.component('responsive-image', require('fh-components/responsive-image'))
+    Vue.component('responsive-image', require('fh-components/responsive-image'))
     Vue.component('a-div', require('fh-components/a-div'))
 
     // globally register everything in the /components folder

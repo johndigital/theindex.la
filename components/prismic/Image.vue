@@ -1,23 +1,20 @@
 <template>
     <no-ssr>
         <div
-            v-if="padding"
             :style="{ paddingBottom: `${padding}%` }"
             class="prismic-image-placeholder"
             slot="placeholder"
+        />
+        <responsive-image
+            v-bind="bindProps"
+            :object="image | prisToRezImg"
+            :fillSpace="fillSpace"
+            :aspect="aspect"
+            color="#f1f1f1"
+            :fit="fit"
         >
-            <!-- <responsive-image 
-                v-if="image"
-                v-bind="bindProps"
-                :object="image | prisToRezImg"
-                :fillSpace="fillSpace"
-                :aspect="aspect"
-                color="#f1f1f1"
-                :fit="fit"
-            >
-                <slot />
-            </responsive-image> -->
-        </div>
+            <slot />
+        </responsive-image>
     </no-ssr>
 </template>
 
