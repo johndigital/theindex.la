@@ -42,7 +42,7 @@ export default {
 
 main.front-page {
     .inner {
-        margin: 100px $desktop-padding 50px;
+        padding: 90px 0 50px;
         position: relative;
     }
 }

@@ -22,6 +22,7 @@ export default {
     background-color: $white;
     padding: 35px $desktop-padding;
     position: fixed;
+    height: 20px;
     right: 0;
     left: 0;
     top: 0;

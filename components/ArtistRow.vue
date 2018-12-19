@@ -9,9 +9,22 @@
                 />
             </no-ssr>
         </div>
-        <div class="column name"></div>
-        <div class="column categories"></div>
-        <div class="column location"></div>
+        <div class="column name">
+            <h3 class="title">{{ title }}</h3>
+            <ul class="types">
+                <li v-for="type in types">
+                    <a-div :href="type.link">{{ type.name }}</a-div>
+                </li>
+            </ul>
+        </div>
+        <ul class="column categories">
+            <li v-for="category in categories">
+                <a-div :href="category.link">{{ category.name }}</a-div>
+            </li>
+        </ul>
+        <div class="column city">
+            <a-div v-if="city" :href="city.link">{{ city.name }}</a-div>
+        </div>
     </div>
 </template>
 
@@ -28,6 +41,59 @@ export default {
     computed: {
         image() {
             return _get(this.artist, 'data.featureImage')
+        },
+        title() {
+            return _get(this.artist, 'data.name')
+        },
+        types() {
+            const artistTypes = _get(this.artist, 'data.types', []).map(
+                type => {
+                    return _get(type, 'type.id')
+                }
+            )
+            const types = _get(this.$store.state, 'pageData.types', []).filter(
+                type => {
+                    return artistTypes.includes(type.id)
+                }
+            )
+            return types.map(type => {
+                return {
+                    name: _get(type, 'data.name', ''),
+                    link: this.$options.filters.prismicLink(type)
+                }
+            })
+        },
+        categories() {
+            const artistCats = _get(this.artist, 'data.categories', []).map(
+                cat => {
+                    return _get(cat, 'category.id')
+                }
+            )
+            const categories = _get(
+                this.$store.state,
+                'pageData.categories',
+                []
+            ).filter(cat => {
+                return artistCats.includes(cat.id)
+            })
+            return categories.map(cat => {
+                return {
+                    name: _get(cat, 'data.name', ''),
+                    link: this.$options.filters.prismicLink(cat)
+                }
+            })
+        },
+        city() {
+            const city = _get(this.$store.state, 'pageData.cities', []).find(
+                city => {
+                    return city.id === _get(this.artist, 'data.city.id')
+                }
+            )
+            if (!city) return false
+            return {
+                name: _get(city, 'data.name', ''),
+                link: this.$options.filters.prismicLink(city)
+            }
         }
     }
 }
@@ -37,11 +103,37 @@ export default {
 @import '../assets/scss/vars';
 
 .artist-row {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 24% repeat(3, 1fr);
+    grid-gap: 60px;
+    border-top: 1px solid $mid-gray;
     display: grid;
+    padding: 60px $desktop-padding;
+    color: $dark-gray;
 
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    a {
+        text-decoration: none;
+        color: $dark-gray;
+
+        &:hover {
+            color: $black;
+        }
+    }
+    h3 {
+        font-size: 100%;
+        color: $black;
+    }
     .image {
         position: relative;
+    }
+    .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 </style>

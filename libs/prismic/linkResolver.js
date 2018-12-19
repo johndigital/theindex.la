@@ -16,6 +16,19 @@ const resolver = doc => {
         return doc.url
     }
 
+    // filter links
+    if (doc.type === 'type') {
+        return `/?type=${slug}`
+    }
+
+    if (doc.type === 'category') {
+        return `/?category=${slug}`
+    }
+
+    if (doc.type === 'city') {
+        return `/?city=${slug}`
+    }
+
     return '/not-found'
 }
 

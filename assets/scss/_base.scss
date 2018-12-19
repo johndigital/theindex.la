@@ -9,6 +9,7 @@ body {
     text-rendering: optimizeLegibility !important;
 }
 a {
+    transition: color 250ms $easeInOutQuad;
     color: $black;
 }
 h1,
@@ -23,3 +24,8 @@ h6 {
 // ::-webkit-scrollbar {
 //     display: none;
 // }
+
+// layering
+.site-header {
+    z-index: 40;
+}
