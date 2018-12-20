@@ -47,3 +47,13 @@ button {
 .site-header {
     z-index: 40;
 }
+
+// Basic fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 200ms $easeInOutQuad;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}

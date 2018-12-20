@@ -7,8 +7,14 @@
         <button @click="toggleMenu" class="toggle-menu">
             <svg-hamburger />
         </button>
-        <button @click="toggleMenu" class="toggle-grid">
-            <svg-dot-grid />
+        <button @click="toggleGrid" class="toggle-grid">
+            <transition name="fade" mode="out-in">
+                <span
+                    v-if="$store.state.gridView"
+                    class="icon-rounded-square"
+                />
+                <svg-dot-grid v-else />
+            </transition>
         </button>
     </header>
 </template>
@@ -24,6 +30,10 @@ export default {
         toggleMenu() {
             if (this.$store.state.menuOpen) this.$store.commit('CLOSE_MENU')
             else this.$store.commit('OPEN_MENU')
+        },
+        toggleGrid() {
+            if (this.$store.state.gridView) this.$store.commit('LIST_VIEW')
+            else this.$store.commit('GRID_VIEW')
         }
     }
 }
@@ -60,6 +70,13 @@ export default {
         padding-right: 20px;
         right: #{$desktop-padding + 45};
         top: 0;
+    }
+    .icon-rounded-square {
+        background-color: $black;
+        display: inline-block;
+        border-radius: 2px;
+        height: 18px;
+        width: 18px;
     }
     .sidebar-open & {
         left: 320px;

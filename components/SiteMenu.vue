@@ -121,7 +121,7 @@ export default {
         transition: opacity 500ms, transform 400ms;
     }
     .menu li {
-        transition: opacity 500ms;
+        transition: opacity 250ms;
     }
 }
 
@@ -133,7 +133,7 @@ export default {
     }
     @for $i from 1 through 6 {
         .menu li:nth-child(6n + #{ $i }) {
-            transition-delay: #{75 * $i}ms;
+            transition-delay: #{50 * $i}ms;
         }
     }
 }

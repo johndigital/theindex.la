@@ -12,7 +12,8 @@ const createStore = () => {
             sidebarOpen: false,
             menuOpen: false,
             subscribeOpen: false,
-            submitOpen: false
+            submitOpen: false,
+            gridView: false
         },
         mutations: {
             SET_PAGE_DATA: (state, { key, data }) => {
@@ -44,6 +45,12 @@ const createStore = () => {
             },
             CLOSE_SUBMIT: state => {
                 state.submitOpen = false
+            },
+            GRID_VIEW: state => {
+                state.gridView = true
+            },
+            LIST_VIEW: state => {
+                state.gridView = false
             }
         },
         actions: {}
