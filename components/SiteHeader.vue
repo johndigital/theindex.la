@@ -1,7 +1,10 @@
 <template>
     <header class="site-header">
         <button @click="toggleSidebar" class="toggle-sidebar">
-            <svg-mag-glass />
+            <transition name="fade" mode="out-in">
+                <svg-arrow-left v-if="$store.state.sidebarOpen" />
+                <svg-mag-glass v-else />
+            </transition>
         </button>
 
         <button @click="toggleMenu" class="toggle-menu">
@@ -80,6 +83,13 @@ export default {
     }
     .sidebar-open & {
         left: 320px;
+    }
+    .svg-arrow-left polyline {
+        transition: stroke 250ms $easeInOutQuad;
+        stroke: $dark-gray;
+    }
+    .toggle-sidebar:hover polyline {
+        stroke: $black;
     }
 }
 </style>

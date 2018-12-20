@@ -2,15 +2,19 @@
     <div class="artist-row">
         <div class="column image">
             <no-ssr>
-                <responsive-image
-                    :object="image | prisToRezImg"
-                    :aspect="100"
-                    fit="contain"
-                />
+                <a-div :href="artist | prismicLink">
+                    <responsive-image
+                        :object="image | prisToRezImg"
+                        :aspect="100"
+                        fit="contain"
+                    />
+                </a-div>
             </no-ssr>
         </div>
         <div class="column name">
-            <h3 class="title">{{ title }}</h3>
+            <h3 class="title">
+                <a-div :href="artist | prismicLink">{{ title }}</a-div>
+            </h3>
             <ul class="types">
                 <li v-for="type in types">
                     <nuxt-link :to="type.link">{{ type.name }}</nuxt-link>
@@ -125,7 +129,11 @@ export default {
     }
     h3 {
         font-size: 100%;
-        color: $black;
+
+        a {
+            color: $black;
+            display: block;
+        }
     }
     .image {
         position: relative;
@@ -134,6 +142,40 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    // grid view
+    .is-grid-view & {
+        text-align: center;
+        overflow: hidden;
+        padding-right: 0;
+        padding-left: 0;
+        border-top: none;
+        display: block;
+        width: 50%;
+
+        .categories,
+        .city {
+            display: none;
+        }
+        .image {
+            width: calc(100% - 60px);
+            margin: auto;
+        }
+        .title a {
+            padding-top: 30px;
+        }
+        .types li {
+            display: inline-block;
+
+            &::after {
+                content: '/';
+                margin: 0 5px;
+            }
+            &:last-child::after {
+                display: none;
+            }
+        }
     }
 }
 </style>

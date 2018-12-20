@@ -1,14 +1,16 @@
 <template>
     <main class="front-page">
-        <div class="inner">
-            <div class="artist-grid">
-                <artist-row
-                    v-for="(artist, i) in artists"
-                    :artist="artist"
-                    :key="i"
-                />
+        <transition name="fade" mode="out-in">
+            <div :class="innerClasses" :key="$store.state.gridView">
+                <div class="artist-grid">
+                    <artist-row
+                        v-for="(artist, i) in artists"
+                        :artist="artist"
+                        :key="i"
+                    />
+                </div>
             </div>
-        </div>
+        </transition>
     </main>
 </template>
 
@@ -30,6 +32,13 @@ export default {
         })
     },
     computed: {
+        innerClasses() {
+            return [
+                'inner',
+                { 'is-grid-view': this.$store.state.gridView },
+                { 'is-list-view': !this.$store.state.gridView }
+            ]
+        },
         artists() {
             return _get(this.$store.state, 'pageData.artists', [])
         }
@@ -44,6 +53,14 @@ main.front-page {
     .inner {
         padding: 90px 0 50px;
         position: relative;
+    }
+
+    // grid mode
+    .is-grid-view .artist-grid {
+        padding-right: $desktop-padding;
+        padding-left: $desktop-padding;
+        flex-wrap: wrap;
+        display: flex;
     }
 }
 </style>
