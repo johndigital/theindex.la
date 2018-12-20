@@ -2,13 +2,12 @@
     <div class="search-control-sort">
         <h4 class="section-title">Sort</h4>
         <ul class="filter-select">
-            <li
-                v-for="option in options"
-                :class="{ 'item-active': isItemActive(option.slug) }"
-            >
-                <nuxt-link :to="getLink(option.slug)">{{
-                    option.name
-                }}</nuxt-link>
+            <li v-for="option in options">
+                <nuxt-link
+                    :to="getLink(option.slug)"
+                    :class="{ 'item-active': isItemActive(option.slug) }"
+                    >{{ option.name }}</nuxt-link
+                >
             </li>
         </ul>
     </div>
@@ -49,36 +48,5 @@ export default {
 @import '../assets/scss/vars';
 
 .search-control-sort {
-    button {
-        padding: 0;
-    }
-    a {
-        text-decoration: none;
-        color: $dark-gray;
-    }
-    .item-active a,
-    a:hover {
-        color: $black;
-    }
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    li {
-        position: relative;
-    }
-    .item-active::before {
-        background-color: $black;
-        border-radius: 100%;
-        position: absolute;
-        content: '';
-        right: calc(100% + 10px);
-        margin: auto;
-        height: 6px;
-        width: 6px;
-        bottom: 0;
-        top: 0;
-    }
 }
 </style>

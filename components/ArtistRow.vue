@@ -55,11 +55,13 @@ export default {
                     return _get(type, 'type.id')
                 }
             )
-            const types = _get(this.$store.state, 'pageData.types', []).filter(
-                type => {
-                    return artistTypes.includes(type.id)
-                }
-            )
+            const types = _get(
+                this.$store.state,
+                'pageData.all-type',
+                []
+            ).filter(type => {
+                return artistTypes.includes(type.id)
+            })
             return types.map(type => {
                 return {
                     name: _get(type, 'data.name', ''),
@@ -75,7 +77,7 @@ export default {
             )
             const categories = _get(
                 this.$store.state,
-                'pageData.categories',
+                'pageData.all-category',
                 []
             ).filter(cat => {
                 return artistCats.includes(cat.id)
@@ -88,7 +90,7 @@ export default {
             })
         },
         city() {
-            const city = _get(this.$store.state, 'pageData.cities', []).find(
+            const city = _get(this.$store.state, 'pageData.all-city', []).find(
                 city => {
                     return city.id === _get(this.artist, 'data.city.id')
                 }
