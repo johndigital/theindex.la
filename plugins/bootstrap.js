@@ -8,10 +8,11 @@ export default async ({ store }, inject) => {
     Vue.component('responsive-image', require('fh-components/responsive-image'))
 
     // preload global data
-    const [allTypes, allCats, allCities] = await Promise.all([
+    const [allTypes, allCats, allCities, metaDocs] = await Promise.all([
         fetchByType({ type: 'type', pageSize: 100 }),
         fetchByType({ type: 'category', pageSize: 100 }),
-        fetchByType({ type: 'city', pageSize: 100 })
+        fetchByType({ type: 'city', pageSize: 100 }),
+        fetchByType({ type: 'meta', pageSize: 1 })
     ])
     store.commit('SET_PAGE_DATA', {
         key: 'types',
@@ -24,6 +25,10 @@ export default async ({ store }, inject) => {
     store.commit('SET_PAGE_DATA', {
         key: 'cities',
         data: allCities
+    })
+    store.commit('SET_PAGE_DATA', {
+        key: 'meta',
+        data: metaDocs.length ? metaDocs[0] : null
     })
 
     // globally register everything in the /components folder

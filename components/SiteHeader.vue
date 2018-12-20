@@ -7,6 +7,9 @@
         <button @click="toggleMenu" class="toggle-menu">
             <svg-hamburger />
         </button>
+        <button @click="toggleMenu" class="toggle-grid">
+            <svg-dot-grid />
+        </button>
     </header>
 </template>
 
@@ -19,7 +22,7 @@ export default {
             else this.$store.commit('OPEN_SIDEBAR')
         },
         toggleMenu() {
-            if (this.$store.state.menuOpened) this.$store.commit('CLOSE_MENU')
+            if (this.$store.state.menuOpen) this.$store.commit('CLOSE_MENU')
             else this.$store.commit('OPEN_MENU')
         }
     }
@@ -49,6 +52,13 @@ export default {
         position: absolute;
         padding: 35px;
         right: #{$desktop-padding - 35};
+        top: 0;
+    }
+    .toggle-grid {
+        position: absolute;
+        padding: 35px;
+        padding-right: 20px;
+        right: #{$desktop-padding + 45};
         top: 0;
     }
     .sidebar-open & {

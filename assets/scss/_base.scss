@@ -41,6 +41,9 @@ button {
 // }
 
 // layering
+.site-menu {
+    z-index: 50;
+}
 .site-header {
     z-index: 40;
 }

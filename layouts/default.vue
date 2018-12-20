@@ -3,6 +3,7 @@
         <site-header />
         <nuxt />
         <site-sidebar />
+        <site-menu />
     </div>
 </template>
 
@@ -29,6 +30,7 @@ export default {
                 `route-${_kebabCase(this.$route.name)}`,
                 `breakpoint-${this.$store.getters.breakpoint}`,
                 { 'sidebar-open': this.$store.state.sidebarOpen },
+                { 'menu-open': this.$store.state.menuOpen },
                 { 'is-touch': this.$store.state.browser.hasTouch },
                 { 'not-touch': !this.$store.state.browser.hasTouch },
                 { 'fonts-loading': this.$store.state.browser.fontsLoading },

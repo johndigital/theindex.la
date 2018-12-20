@@ -9,7 +9,10 @@ const createStore = () => {
         },
         state: {
             pageData: {},
-            sidebarOpen: false
+            sidebarOpen: false,
+            menuOpen: false,
+            subscribeOpen: false,
+            submitOpen: false
         },
         mutations: {
             SET_PAGE_DATA: (state, { key, data }) => {
@@ -23,6 +26,24 @@ const createStore = () => {
             },
             CLOSE_SIDEBAR: state => {
                 state.sidebarOpen = false
+            },
+            OPEN_MENU: state => {
+                state.menuOpen = true
+            },
+            CLOSE_MENU: state => {
+                state.menuOpen = false
+            },
+            OPEN_SUBSCRIBE: state => {
+                state.subscribeOpen = true
+            },
+            CLOSE_SUBSCRIBE: state => {
+                state.subscribeOpen = false
+            },
+            OPEN_SUBMIT: state => {
+                state.submitOpen = true
+            },
+            CLOSE_SUBMIT: state => {
+                state.submitOpen = false
             }
         },
         actions: {}
