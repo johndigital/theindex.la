@@ -1,5 +1,5 @@
 <template>
-    <transition name="menu-fade">
+    <transition name="menu-fade" :duration="1200">
         <section
             v-show="$store.state.menuOpen"
             @click="closeMenu"
@@ -108,6 +108,52 @@ export default {
     }
     .social-menu li {
         line-height: 2;
+    }
+}
+
+// Transition
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+    transition: opacity 450ms $authenticMotion;
+
+    .logo,
+    .menus {
+        transition: opacity 500ms, transform 400ms;
+    }
+    .menu li {
+        transition: opacity 500ms;
+    }
+}
+
+// stagger only on open
+.menu-fade-enter-active {
+    .logo,
+    .menus {
+        transition-delay: 100ms;
+    }
+    @for $i from 1 through 6 {
+        .menu li:nth-child(6n + #{ $i }) {
+            transition-delay: #{75 * $i}ms;
+        }
+    }
+}
+
+// off state
+.menu-fade-enter,
+.menu-fade-leave-to {
+    opacity: 0;
+
+    .menu li,
+    .logo {
+        opacity: 0;
+    }
+}
+
+// only slide up on enter
+.menu-fade-enter {
+    .logo,
+    .menus {
+        transform: translateY(30px);
     }
 }
 </style>
