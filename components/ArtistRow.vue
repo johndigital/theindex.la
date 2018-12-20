@@ -13,7 +13,7 @@
             <h3 class="title">{{ title }}</h3>
             <ul class="types">
                 <li v-for="type in types">
-                    <a-div :href="type.link">{{ type.name }}</a-div>
+                    <nuxt-link :to="type.link">{{ type.name }}</nuxt-link>
                 </li>
             </ul>
         </div>
