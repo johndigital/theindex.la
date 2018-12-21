@@ -15,14 +15,15 @@
 </template>
 
 <script>
-import { fetchByType } from '~/libs/prismic'
+import { fetchByQs } from '~/libs/prismic'
 import _get from 'lodash/get'
 
 export default {
-    async fetch({ store, params }) {
-        const artists = await fetchByType({
-            type: 'artist',
-            orderings: '[my.artist.order desc]',
+    watchQuery: true,
+    async fetch({ store, params, query }) {
+        const artists = await fetchByQs({
+            query,
+            store,
             pageSize: 20
         })
 
