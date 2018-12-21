@@ -1,18 +1,20 @@
 <template>
     <header class="site-header">
-        <nuxt-link v-if="hasArrow" :to="backLink" class="toggle-sidebar">
-            <svg-arrow-left />
-        </nuxt-link>
-        <button
-            v-else-if="hasSidebar"
-            @click="toggleSidebar"
-            class="toggle-sidebar"
-        >
-            <transition name="fade" mode="out-in">
-                <svg-arrowhead-left v-if="$store.state.sidebarOpen" />
-                <svg-mag-glass v-else />
-            </transition>
-        </button>
+        <transition name="fade" mode="out-in">
+            <nuxt-link v-if="hasArrow" :to="backLink" class="toggle-sidebar">
+                <svg-arrow-left />
+            </nuxt-link>
+            <button
+                v-else-if="hasSidebar"
+                @click="toggleSidebar"
+                class="toggle-sidebar"
+            >
+                <transition name="fade" mode="out-in">
+                    <svg-arrowhead-left v-if="$store.state.sidebarOpen" />
+                    <svg-mag-glass v-else />
+                </transition>
+            </button>
+        </transition>
 
         <button @click="toggleMenu" class="toggle-menu">
             <svg-hamburger />
@@ -36,10 +38,10 @@ export default {
             return ['artist-slug', 'features-slug'].includes(this.$route.name)
         },
         hasGridToggle() {
-            this.$route.name == 'index'
+            return this.$route.name == 'index'
         },
         hasSidebar() {
-            this.$route.name == 'index'
+            return this.$route.name == 'index'
         },
         backLink() {
             if (!this.$store.state.browser.referredFrom) return '/'
