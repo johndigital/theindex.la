@@ -3,7 +3,10 @@
         <h4 class="section-title">{{ title }}</h4>
         <ul class="filter-select">
             <li v-for="option in filterOptions">
-                <nuxt-link :to="option.link">{{ option.name }}</nuxt-link>
+                <search-control-filter-option
+                    :option="option"
+                    :dimension="dimension"
+                />
             </li>
         </ul>
     </div>
@@ -25,28 +28,7 @@ export default {
     },
     computed: {
         filterOptions() {
-            return _get(
-                this.$store.state.pageData,
-                `all-${this.dimension}`,
-                []
-            ).map(option => {
-                return {
-                    name: _get(option, 'data.name'),
-                    link: this.getOptionLink(option)
-                }
-            })
-        }
-    },
-    methods: {
-        getOptionLink(option) {
-            const slug = _get(option, 'slugs[0]')
-            return {
-                ...this.$route,
-                query: {
-                    ...this.$route.query,
-                    [this.dimension]: slug
-                }
-            }
+            return _get(this.$store.state.pageData, `all-${this.dimension}`, [])
         }
     }
 }
