@@ -114,20 +114,26 @@ export const fetchByType = async ops => {
     // resolve settings
     const settings = {
         type: 'page',
+        slug: '',
         pageSize: 40,
         page: 1,
         orderings: '',
         ...ops
     }
 
+    const predicates = [Prismic.Predicates.at('document.type', settings.type)]
+
+    // if slug was specified
+    if (settings.slug) {
+        const artist = await api.getByUID(settings.type, settings.slug)
+        return artist
+    }
+
     // run query
-    const { results } = await api.query(
-        [Prismic.Predicates.at('document.type', settings.type)],
-        {
-            pageSize: settings.pageSize,
-            page: settings.page,
-            orderings: settings.orderings
-        }
-    )
+    const { results } = await api.query(predicates, {
+        pageSize: settings.pageSize,
+        page: settings.page,
+        orderings: settings.orderings
+    })
     return results
 }

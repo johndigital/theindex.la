@@ -1,8 +1,11 @@
 <template>
     <header class="site-header">
-        <button @click="toggleSidebar" class="toggle-sidebar">
+        <nuxt-link v-if="hasArrow" :to="backLink" class="toggle-sidebar">
+            <svg-arrow-left />
+        </nuxt-link>
+        <button v-else @click="toggleSidebar" class="toggle-sidebar">
             <transition name="fade" mode="out-in">
-                <svg-arrow-left v-if="$store.state.sidebarOpen" />
+                <svg-arrowhead-left v-if="$store.state.sidebarOpen" />
                 <svg-mag-glass v-else />
             </transition>
         </button>
@@ -10,7 +13,7 @@
         <button @click="toggleMenu" class="toggle-menu">
             <svg-hamburger />
         </button>
-        <button @click="toggleGrid" class="toggle-grid">
+        <button v-if="hasGridToggle" @click="toggleGrid" class="toggle-grid">
             <transition name="fade" mode="out-in">
                 <span
                     v-if="$store.state.gridView"
@@ -24,6 +27,18 @@
 
 <script>
 export default {
+    computed: {
+        hasArrow() {
+            return ['artist-slug', 'features-slug'].includes(this.$route.name)
+        },
+        hasGridToggle() {
+            this.$route.name == 'index'
+        },
+        backLink() {
+            if (!this.$store.state.browser.referredFrom) return '/'
+            return this.$store.state.browser.referredFrom.fullPath
+        }
+    },
     methods: {
         toggleSidebar() {
             if (this.$store.state.sidebarOpen)
@@ -37,6 +52,9 @@ export default {
         toggleGrid() {
             if (this.$store.state.gridView) this.$store.commit('LIST_VIEW')
             else this.$store.commit('GRID_VIEW')
+        },
+        onArrowClick() {
+            alert('clicked arrow')
         }
     }
 }
