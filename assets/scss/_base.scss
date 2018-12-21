@@ -21,6 +21,9 @@ h6 {
     font-weight: 400;
     margin: 0;
 }
+strong {
+    font-weight: 400;
+}
 
 // button reset
 button {
@@ -63,6 +66,51 @@ input {
 }
 .site-header {
     z-index: 40;
+}
+
+// Prismic content styling
+.entry {
+    color: $dark-gray;
+
+    h3 {
+        font-size: 32px;
+        line-height: 1.5;
+        margin: 30px 0;
+        color: $black;
+    }
+    strong {
+        color: $black;
+    }
+    ul {
+        list-style-type: none;
+        margin: 30px 0;
+        padding: 0;
+    }
+    a {
+        text-decoration: none;
+        color: $dark-gray;
+
+        &:hover {
+            color: $black;
+        }
+    }
+    p {
+        margin: 30px 0;
+    }
+    a strong,
+    strong a {
+        position: relative;
+
+        &::after {
+            background-color: $black;
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            height: 1px;
+            right: 0;
+            left: 0;
+        }
+    }
 }
 
 // Basic fade

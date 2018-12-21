@@ -34,6 +34,11 @@ const resolver = doc => {
         return `/artist/${slug}`
     }
 
+    // page
+    if (doc.type === 'page') {
+        return `/${slug}`
+    }
+
     return '/not-found'
 }
 

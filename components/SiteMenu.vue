@@ -98,7 +98,7 @@ export default {
         margin-right: $desktop-padding;
         text-align: right;
     }
-    .menu .nuxt-link-active,
+    .menu .nuxt-link-exact-active,
     .menu li *:hover {
         color: $white;
     }
