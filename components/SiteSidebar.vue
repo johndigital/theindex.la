@@ -11,7 +11,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+    watch: {
+        '$route.name'() {
+            this.$store.commit('CLOSE_SIDEBAR')
+        }
+    }
+}
 </script>
 
 <style lang="scss">

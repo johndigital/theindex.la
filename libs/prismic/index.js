@@ -137,3 +137,16 @@ export const fetchByType = async ops => {
     })
     return results
 }
+
+// Query Similar
+export const fetchSimilar = async id => {
+    const api = await getApi()
+
+    const predicates = [Prismic.Predicates.similar(id, 5)]
+
+    // run query
+    const { results } = await api.query(predicates, {
+        pageSize: 10
+    })
+    return results
+}

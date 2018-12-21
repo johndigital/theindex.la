@@ -38,11 +38,31 @@
                 </li>
             </ul>
         </div>
+
+        <div class="artist-gallery">
+            <no-ssr v-for="(item, i) in galleryItems" :key="i">
+                <responsive-image
+                    class="gallery-item"
+                    :object="item.item_image | prisToRezImg"
+                />
+            </no-ssr>
+        </div>
+
+        <div class="related-section">
+            <h3 class="related-title">Related Artists</h3>
+            <div class="related-grid">
+                <artist-row
+                    v-for="(artist, i) in similarItems"
+                    :artist="artist"
+                    :key="i"
+                />
+            </div>
+        </div>
     </main>
 </template>
 
 <script>
-import { fetchByType } from '~/libs/prismic'
+import { fetchByType, fetchSimilar } from '~/libs/prismic'
 import _get from 'lodash/get'
 
 export default {
@@ -53,9 +73,19 @@ export default {
         })
 
         if (artist) {
-            return store.commit('SET_PAGE_DATA', {
+            store.commit('SET_PAGE_DATA', {
                 key: `artist/${params.slug}`,
                 data: artist
+            })
+
+            // get similar
+            const similar = await fetchByType({
+                type: 'artist',
+                pageSize: 6
+            })
+            store.commit('SET_PAGE_DATA', {
+                key: `artist/${params.slug}/similar`,
+                data: similar
             })
         }
     },
@@ -124,6 +154,13 @@ export default {
                 name: _get(city, 'data.name', ''),
                 link: this.$options.filters.prismicLink(city)
             }
+        },
+        galleryItems() {
+            return _get(this.pageData, 'data.gallery', [])
+        },
+        similarItems() {
+            const slug = this.$route.params.slug
+            return _get(this.$store.state, `pageData[artist/${slug}/similar]`)
         }
     }
 }
@@ -133,6 +170,8 @@ export default {
 @import '../../assets/scss/vars';
 
 .artist-detail {
+    padding-top: $header-height;
+
     .artist-info {
         position: fixed;
         justify-content: center;
@@ -162,6 +201,36 @@ export default {
         .column {
             margin-top: 30px;
         }
+    }
+    .artist-gallery {
+        padding-left: $desktop-padding;
+        padding-bottom: 240px;
+        margin: auto;
+        width: 40%;
+    }
+    .gallery-item {
+        padding-bottom: 60px;
+        padding-top: 60px;
+    }
+
+    .related-section {
+        position: relative;
+        background-color: $white;
+    }
+    .related-title {
+        border-bottom: 1px solid $mid-gray;
+        padding-right: $desktop-padding;
+        padding-left: $desktop-padding;
+        padding-bottom: 120px;
+        margin-bottom: 60px;
+        text-align: center;
+        font-size: 32px;
+    }
+    .related-grid {
+        padding-right: $desktop-padding;
+        padding-left: $desktop-padding;
+        flex-wrap: wrap;
+        display: flex;
     }
 }
 </style>

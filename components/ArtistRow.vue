@@ -147,7 +147,8 @@ export default {
     }
 
     // grid view
-    .is-grid-view & {
+    .is-grid-view &,
+    .related-grid & {
         text-align: center;
         overflow: hidden;
         padding-right: 0;
