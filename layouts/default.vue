@@ -4,6 +4,7 @@
         <nuxt />
         <site-sidebar />
         <site-menu />
+        <site-overlay-form />
     </div>
 </template>
 

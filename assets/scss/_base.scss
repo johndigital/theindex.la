@@ -61,6 +61,9 @@ input {
 // }
 
 // layering
+.site-overlay-form {
+    z-index: 60;
+}
 .site-menu {
     z-index: 50;
 }
