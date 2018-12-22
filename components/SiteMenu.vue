@@ -1,5 +1,5 @@
 <template>
-    <transition name="menu-fade" :duration="1200">
+    <transition name="menu-fade" :duration="550">
         <section
             v-show="$store.state.menuOpen"
             @click="closeMenu"
@@ -115,6 +115,7 @@ export default {
 .menu-fade-enter-active,
 .menu-fade-leave-active {
     transition: opacity 450ms $authenticMotion;
+    pointer-events: none;
 
     .logo,
     .menus {
