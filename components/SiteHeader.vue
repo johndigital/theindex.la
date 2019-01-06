@@ -15,6 +15,7 @@
                 </transition>
             </button>
         </transition>
+        <filter-item-list />
 
         <button @click="toggleMenu" class="toggle-menu">
             <svg-hamburger />
@@ -87,6 +88,11 @@ export default {
         padding: 35px;
         left: #{$desktop-padding - 35};
         top: 0;
+    }
+    .filter-item-list {
+        position: absolute;
+        padding: 35px;
+        left: 135px;
     }
     .toggle-menu {
         position: absolute;

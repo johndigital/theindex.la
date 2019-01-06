@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link :class="classes" :to="link"> {{ name }} </nuxt-link>
+    <nuxt-link :class="classes" :to="link">{{ name }}</nuxt-link>
 </template>
 
 <script>
