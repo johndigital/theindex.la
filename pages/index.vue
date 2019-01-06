@@ -2,13 +2,14 @@
     <main class="front-page">
         <transition name="fade" mode="out-in">
             <div :class="innerClasses" :key="$store.state.gridView">
-                <div class="artist-grid">
+                <div v-if="artists.length" class="artist-grid">
                     <artist-row
                         v-for="(artist, i) in artists"
                         :artist="artist"
                         :key="i"
                     />
                 </div>
+                <div v-else class="no-results">No Artists</div>
             </div>
         </transition>
     </main>
@@ -54,6 +55,14 @@ main.front-page {
     .inner {
         padding: 90px 0 50px;
         position: relative;
+    }
+
+    // no results
+    .no-results {
+        padding-right: $desktop-padding;
+        padding-left: $desktop-padding;
+        padding-top: 60px;
+        font-size: 28px;
     }
 
     // grid mode
