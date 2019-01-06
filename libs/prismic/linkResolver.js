@@ -41,7 +41,7 @@ const resolver = doc => {
 
     // ftory
     if (doc.type === 'feature') {
-        return `/feature/${slug}`
+        return `/features/${slug}`
     }
 
     return '/not-found'
