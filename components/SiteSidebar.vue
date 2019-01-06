@@ -1,11 +1,16 @@
 <template>
-    <aside class="site-sidebar">
-        <div class="inner-sidebar">
-            <search-field />
-            <search-control-sort />
-            <search-control-filter title="Type" dimension="type" />
-            <search-control-filter title="Category" dimension="category" />
-            <search-control-filter title="Location" dimension="region" />
+    <aside :class="['site-sidebar', { 'many-filters': hasManyFilters }]">
+        <div class="scroll-wrap">
+            <div class="inner-sidebar">
+                <search-field />
+                <search-control-sort />
+                <search-control-filter title="Type" dimension="type" />
+                <search-control-filter title="Category" dimension="category" />
+                <search-control-filter title="Location" dimension="region" />
+            </div>
+        </div>
+        <div class="clear-filters">
+            <nuxt-link class="button" :to="clearLink">Clear all</nuxt-link>
         </div>
     </aside>
 </template>
@@ -16,6 +21,22 @@ export default {
         '$route.name'() {
             this.$store.commit('CLOSE_SIDEBAR')
         }
+    },
+    computed: {
+        clearLink() {
+            return {
+                ...this.$route,
+                query: {}
+            }
+        },
+        hasManyFilters() {
+            const items = Object.keys(this.$route.query).reduce((acc, key) => {
+                const split = String(this.$route.query[key]).split(',')
+                return acc.concat(split)
+            }, [])
+
+            return items.length > 1
+        }
     }
 }
 </script>
@@ -25,18 +46,22 @@ export default {
 
 .site-sidebar {
     transition: transform 400ms $easeInOutQuad;
+    border-right: 1px solid $mid-gray;
     background-color: $light-gray;
     transform: translateX(-100%);
     box-sizing: border-box;
     position: fixed;
-    overflow: auto;
     width: 320px;
     bottom: 0;
     left: 0;
     top: 0;
 
+    .scroll-wrap {
+        @include fill;
+        overflow: auto;
+    }
     .inner-sidebar {
-        padding: 30px 60px;
+        padding: 30px 60px 150px;
     }
 
     .search-control-sort {
@@ -85,6 +110,28 @@ export default {
             bottom: 0;
             top: 0;
         }
+    }
+
+    // button to clear filters
+    .clear-filters {
+        transition: transform 450ms;
+        background-color: $white;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+
+        .button {
+            box-sizing: border-box;
+            text-decoration: none;
+            padding: 30px 60px;
+            text-align: left;
+            display: block;
+            width: 100%;
+        }
+    }
+    &.many-filters .clear-filters {
+        transform: translateY(-100%);
     }
 }
 </style>
