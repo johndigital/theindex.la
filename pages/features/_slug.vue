@@ -1,17 +1,6 @@
 <template>
     <main class="feature-detail" :style="styles">
-        <div v-if="hasCover" class="cover-section">
-            <no-ssr>
-                <responsive-image
-                    :object="coverImage | prisToRezImg"
-                    fill-space
-                />
-            </no-ssr>
-            <div class="cover-meta">
-                <div class="subtext">{{ coverCredits }}</div>
-                <h2 class="title">{{ coverTitle }}</h2>
-            </div>
-        </div>
+        <feature-cover v-if="hasCover" :fields="coverData" />
         <div class="body-sections">
             <component
                 v-for="(section, i) in bodySections"
@@ -57,24 +46,17 @@ export default {
                 `features/${this.$route.params.slug}`
             )
         },
-        coverCredits() {
-            return _get(this.pageData, 'data.cover[0].credits')
-        },
-        coverTitle() {
-            const title = _get(this.pageData, 'data.cover[0].title')
-            return this.$options.filters.prismicText(title)
-        },
-        coverImage() {
-            return _get(this.pageData, 'data.cover[0].image')
+        coverData() {
+            return _get(this.pageData, 'data.cover[0]')
         },
         bodySections() {
             return _get(this.pageData, 'data.body', [])
         },
         hasCover() {
             return !!(
-                this.coverCredits &&
-                this.coverImage &&
-                this.coverImage.url
+                this.coverData &&
+                this.coverData.credits &&
+                this.coverData.image.url
             )
         },
         bgColor() {
@@ -107,12 +89,13 @@ export default {
     background-color: transparent;
 }
 .feature-detail {
+    overflow: hidden;
     min-height: 100vh;
 
     a {
         color: inherit;
     }
-    .cover-section {
+    .feature-cover {
         position: relative;
         height: 100vh;
         display: flex;
@@ -127,6 +110,9 @@ export default {
             margin-top: 20px;
             font-size: 40px;
         }
+    }
+    .body-sections {
+        overflow: hidden;
     }
     .next-story {
         padding: 240px $desktop-padding;
