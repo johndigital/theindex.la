@@ -73,16 +73,10 @@ input {
 
 // Prismic content styling
 .entry {
-    color: $dark-gray;
-
     h3 {
         font-size: 32px;
         line-height: 1.5;
         margin: 30px 0;
-        color: $black;
-    }
-    strong {
-        color: $black;
     }
     ul {
         list-style-type: none;
@@ -91,11 +85,6 @@ input {
     }
     a {
         text-decoration: none;
-        color: $dark-gray;
-
-        &:hover {
-            color: $black;
-        }
     }
     p {
         margin: 30px 0;

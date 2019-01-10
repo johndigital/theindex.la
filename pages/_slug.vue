@@ -57,6 +57,21 @@ export default {
     .entry {
         max-width: 850px;
         padding: 60px 0;
+        color: $dark-gray;
+
+        h3 {
+            color: $black;
+        }
+        strong {
+            color: $black;
+        }
+        a {
+            color: $dark-gray;
+
+            &:hover {
+                color: $black;
+            }
+        }
     }
     .entry,
     .footer {

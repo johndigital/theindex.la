@@ -1,14 +1,25 @@
 <template>
-    <div class="bs-video">VIDEO HERE</div>
+    <div class="bs-video"><video-block :embed="section.value" /></div>
 </template>
 
 <script>
-export default {}
+export default {
+    props: {
+        section: {
+            type: Object,
+            required: true
+        }
+    }
+}
 </script>
 
 <style lang="scss">
 @import '../../assets/scss/vars';
 
 .bs-video {
+    padding-right: $desktop-padding;
+    padding-left: $desktop-padding;
+    max-width: 960px;
+    margin: auto;
 }
 </style>

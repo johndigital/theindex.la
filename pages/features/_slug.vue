@@ -93,7 +93,7 @@ export default {
         },
         nextStyles() {
             return {
-                borderColor: this.borderColor
+                borderColor: this.textColor
             }
         }
     }
@@ -133,6 +133,7 @@ export default {
         border-top: 1px solid;
         text-decoration: none;
         text-align: center;
+        margin-top: 240px;
         font-size: 32px;
         display: block;
     }
