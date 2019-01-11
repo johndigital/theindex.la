@@ -28,6 +28,7 @@
     "dependencies": {
         "fh-components": "^1.4.11",
         "fontfaceobserver": "^2.0.13",
+        "headroom.js": "^0.9.4",
         "lodash": "^4.17.11",
         "nuxt": "^2.3.2",
         "popmotion": "^8.5.3",

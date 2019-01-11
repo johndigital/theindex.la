@@ -34,6 +34,14 @@
 
 <script>
 export default {
+    async mounted() {
+        await this.$nextTick()
+
+        // require and init headroom
+        const Headroom = require('headroom.js')
+        const headroom = new Headroom(this.$el)
+        headroom.init()
+    },
     computed: {
         hasArrow() {
             return ['artist-slug', 'features-slug'].includes(this.$route.name)
@@ -74,7 +82,7 @@ export default {
 @import '../assets/scss/vars';
 
 .site-header {
-    transition: left 400ms $easeInOutQuad;
+    transition: left 400ms $easeInOutQuad, transform 350ms $easeInOutQuad;
     background-color: $white;
     position: fixed;
     overflow: hidden;
@@ -82,6 +90,11 @@ export default {
     right: 0;
     left: 0;
     top: 0;
+
+    // headroom
+    &.headroom--unpinned {
+        transform: translateY(-100%);
+    }
 
     .toggle-sidebar {
         position: absolute;
