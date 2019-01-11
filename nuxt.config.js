@@ -33,6 +33,10 @@ module.exports = {
             { rel: 'author', href: `/humans.txt` }
         ]
     },
+    transition: {
+        name: 'page-fade',
+        mode: 'out-in'
+    },
     build: {
         vendor: ['lodash/get', 'lodash/throttle', 'popmotion']
     },

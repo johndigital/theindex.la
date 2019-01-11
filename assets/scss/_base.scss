@@ -114,3 +114,13 @@ input {
 .fade-leave-to {
     opacity: 0;
 }
+
+// Page fade
+.container main.page-fade-enter-active,
+.container main.page-fade-leave-active {
+    transition: opacity 375ms $easeInOutQuad;
+}
+.container .page-fade-enter,
+.container .page-fade-leave-to {
+    opacity: 0;
+}
