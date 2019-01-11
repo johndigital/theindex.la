@@ -11,7 +11,7 @@
     >
         <line
             fill="none"
-            stroke="#000000"
+            :stroke="color"
             stroke-width="2"
             x1="1.74"
             y1="9.76"
@@ -20,9 +20,20 @@
         />
         <polyline
             fill="none"
-            stroke="#000000"
+            :stroke="color"
             stroke-width="2"
             points="11.05,19.08 1.74,9.76 10.57,0.92 "
         />
     </svg>
 </template>
+
+<script>
+export default {
+    props: {
+        color: {
+            type: String,
+            default: '#000000'
+        }
+    }
+}
+</script>

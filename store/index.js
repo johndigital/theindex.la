@@ -13,7 +13,8 @@ const createStore = () => {
             menuOpen: false,
             subscribeOpen: false,
             submitOpen: false,
-            gridView: false
+            gridView: false,
+            headerTheme: false
         },
         mutations: {
             SET_PAGE_DATA: (state, { key, data }) => {
@@ -51,6 +52,12 @@ const createStore = () => {
             },
             LIST_VIEW: state => {
                 state.gridView = false
+            },
+            SET_HEADER_THEME: (state, theme) => {
+                state.headerTheme = theme
+            },
+            REMOVE_HEADER_THEME: (state, theme) => {
+                state.headerTheme = false
             }
         },
         actions: {}

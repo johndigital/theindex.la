@@ -1,8 +1,8 @@
 <template>
-    <header class="site-header">
+    <header class="site-header" :style="styles">
         <transition name="fade" mode="out-in">
-            <nuxt-link v-if="hasArrow" :to="backLink" class="toggle-sidebar">
-                <svg-arrow-left />
+            <nuxt-link v-if="hasArrow" :to="backLink" class="go-back">
+                <svg-arrow-left :color="fgColor" />
             </nuxt-link>
             <button
                 v-else-if="hasSidebar"
@@ -18,7 +18,7 @@
         <filter-item-list />
 
         <button @click="toggleMenu" class="toggle-menu">
-            <svg-hamburger />
+            <svg-hamburger :color="fgColor" />
         </button>
         <button v-if="hasGridToggle" @click="toggleGrid" class="toggle-grid">
             <transition name="fade" mode="out-in">
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import _get from 'lodash/get'
+
 export default {
     async mounted() {
         await this.$nextTick()
@@ -43,6 +45,12 @@ export default {
         headroom.init()
     },
     computed: {
+        styles() {
+            if (!this.bgColor) return {}
+            return {
+                'background-color': this.bgColor
+            }
+        },
         hasArrow() {
             return ['artist-slug', 'features-slug'].includes(this.$route.name)
         },
@@ -52,9 +60,48 @@ export default {
         hasSidebar() {
             return this.$route.name == 'index'
         },
+        colorTheme() {
+            if (this.isFeatureStory) {
+                const pageData = _get(
+                    this.$store.state,
+                    `pageData[features/${this.$route.params.slug}]`
+                )
+                const fgColor = _get(pageData, 'data.colors[0].textColor')
+                const bgColor = _get(pageData, 'data.colors[0].backgroundColor')
+                const aboveFold =
+                    this.$store.state.browser.sTop <
+                    this.$store.state.browser.winHeight + 25
+                const hideBg =
+                    _get(pageData, 'data.cover[0].style') == 'fullbleed' &&
+                    aboveFold
+                if (fgColor || bgColor) {
+                    return {
+                        hideBg,
+                        fgColor,
+                        bgColor
+                    }
+                }
+            }
+            return false
+        },
+        isFeatureStory() {
+            return this.$route.name == 'features-slug'
+        },
         backLink() {
-            if (!this.$store.state.browser.referredFrom) return '/'
+            if (this.isFeatureStory) {
+                return { path: '../', append: true }
+            } else if (!this.$store.state.browser.referredFrom) {
+                return '/'
+            }
             return this.$store.state.browser.referredFrom.fullPath
+        },
+        fgColor() {
+            const theme = this.colorTheme
+            return (theme && theme.fgColor) || '#000'
+        },
+        bgColor() {
+            if (_get(this.colorTheme, 'hideBg')) return false
+            return _get(this.colorTheme, 'bgColor')
         }
     },
     methods: {
@@ -70,9 +117,6 @@ export default {
         toggleGrid() {
             if (this.$store.state.gridView) this.$store.commit('LIST_VIEW')
             else this.$store.commit('GRID_VIEW')
-        },
-        onArrowClick() {
-            alert('clicked arrow')
         }
     }
 }
@@ -82,7 +126,8 @@ export default {
 @import '../assets/scss/vars';
 
 .site-header {
-    transition: left 400ms $easeInOutQuad, transform 350ms $easeInOutQuad;
+    transition: left 400ms $easeInOutQuad, transform 350ms $easeInOutQuad,
+        background-color 200ms;
     background-color: $white;
     position: fixed;
     overflow: hidden;
@@ -96,7 +141,8 @@ export default {
         transform: translateY(-100%);
     }
 
-    .toggle-sidebar {
+    .toggle-sidebar,
+    .go-back {
         position: absolute;
         padding: 35px;
         left: #{$desktop-padding - 35};
