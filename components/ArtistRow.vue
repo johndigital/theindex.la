@@ -2,13 +2,16 @@
     <div class="artist-row">
         <div class="column image">
             <no-ssr>
-                <a-div :href="artist | prismicLink">
-                    <responsive-image
-                        :object="image | prisToRezImg"
-                        :aspect="100"
-                        fit="contain"
-                    />
-                </a-div>
+                <div class="placeholder" slot="placeholder" />
+                <transition name="fade" appear>
+                    <a-div :href="artist | prismicLink">
+                        <responsive-image
+                            :object="image | prisToRezImg"
+                            :aspect="100"
+                            fit="contain"
+                        />
+                    </a-div>
+                </transition>
             </no-ssr>
         </div>
         <div class="column name">
@@ -115,6 +118,11 @@ export default {
     display: grid;
     padding: 60px $desktop-padding;
     color: $dark-gray;
+
+    .placeholder {
+        padding-bottom: 100%;
+        height: 0;
+    }
 
     ul {
         list-style-type: none;

@@ -40,12 +40,11 @@
         </div>
 
         <div class="artist-gallery">
-            <no-ssr v-for="(item, i) in galleryItems" :key="i">
-                <responsive-image
-                    class="gallery-item"
-                    :object="item.item_image | prisToRezImg"
-                />
-            </no-ssr>
+            <artist-gallery-item
+                v-for="(item, i) in galleryItems"
+                :item="item"
+                :key="i"
+            />
         </div>
 
         <div class="related-section">
