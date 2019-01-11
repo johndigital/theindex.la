@@ -85,7 +85,7 @@ export default {
 <style lang="scss">
 @import '../../assets/scss/vars';
 
-.route-features-slug .site-header {
+.route-stories-slug .site-header {
     background-color: transparent;
 }
 .feature-detail {

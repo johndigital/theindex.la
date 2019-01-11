@@ -87,13 +87,13 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
 
     // no results, try tags instead of search
     if (!results.length && query.q) {
-        predicates.splice(
-            1,
-            1,
-            Prismic.Predicates.at(`document.tags`, [
-                decodeURIComponent(query.q)
-            ])
-        )
+        const q = decodeURIComponent(query.q)
+        const tags = String(q)
+            .split(',')
+            .map(str => str.trim())
+            .filter(Boolean)
+
+        predicates.splice(1, 1, Prismic.Predicates.at(`document.tags`, tags))
 
         // run again
         const retry = await api.query(predicates, {

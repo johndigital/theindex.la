@@ -52,7 +52,7 @@ export default {
             }
         },
         hasArrow() {
-            return ['artist-slug', 'features-slug'].includes(this.$route.name)
+            return ['artist-slug', 'stories-slug'].includes(this.$route.name)
         },
         hasGridToggle() {
             return this.$route.name == 'index'
@@ -85,7 +85,7 @@ export default {
             return false
         },
         isFeatureStory() {
-            return this.$route.name == 'features-slug'
+            return this.$route.name == 'stories-slug'
         },
         backLink() {
             if (this.isFeatureStory) {
