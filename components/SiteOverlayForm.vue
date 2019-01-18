@@ -48,6 +48,9 @@ export default {
     left: 0;
     top: 0;
 
+    .message {
+        margin: auto;
+    }
     form {
         padding-top: 90px;
         text-align: center;
