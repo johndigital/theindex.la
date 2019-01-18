@@ -19,8 +19,8 @@ export default {
         return {
             options: [
                 { name: 'Name', slug: 'name' },
-                { name: 'Latest', slug: 'latest' },
-                { name: 'Location', slug: 'location' }
+                { name: 'Latest', slug: 'latest' }
+                // { name: 'Location', slug: 'location' }
             ]
         }
     },

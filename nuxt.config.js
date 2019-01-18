@@ -51,5 +51,6 @@ module.exports = {
         { src: '~/plugins/browser', ssr: false },
         // { src: '~/plugins/ga', ssr: false },
         '~/plugins/bootstrap'
-    ]
+    ],
+    serverMiddleware: ['~/api']
 }
