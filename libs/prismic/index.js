@@ -107,6 +107,40 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
     return results
 }
 
+// Fetch next document by type
+export const fetchNextDocument = async ops => {
+    const api = await getApi()
+
+    // resolve settings
+    const settings = {
+        type: 'feature',
+        doc: null,
+        ...ops
+    }
+
+    // make sure we have a document
+    if (settings.doc) {
+        const predicates = [
+            Prismic.Predicates.at('document.type', settings.type),
+            Prismic.Predicates.dateBefore(
+                'my.feature.timestamp',
+                settings.doc.data.timestamp
+            )
+        ]
+        const { results } = await api.query(predicates, {
+            pageSize: 1,
+            orderings: '[my.feature.timestamp desc]'
+        })
+
+        // success? return
+        if (results && results.length) {
+            return results[0]
+        }
+    }
+
+    return null
+}
+
 // Query by type
 export const fetchByType = async ops => {
     const api = await getApi()

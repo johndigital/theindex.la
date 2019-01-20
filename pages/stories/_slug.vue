@@ -9,14 +9,19 @@
                 :key="i"
             />
         </div>
-        <nuxt-link to="/" class="next-story" :style="nextStyles">
+        <nuxt-link
+            v-if="nextStory"
+            :to="nextStory | prismicLink"
+            class="next-story"
+            :style="nextStyles"
+        >
             <span>Next Story</span>
         </nuxt-link>
     </main>
 </template>
 
 <script>
-import { fetchByType } from '~/libs/prismic'
+import { fetchByType, fetchNextDocument } from '~/libs/prismic'
 import _get from 'lodash/get'
 
 export default {
@@ -27,10 +32,26 @@ export default {
         })
 
         if (story) {
+            // add to vuex
             store.commit('SET_PAGE_DATA', {
                 key: `features/${params.slug}`,
                 data: story
             })
+
+            // attempt to fetch next in order
+            const nextStory = await fetchNextDocument({
+                type: 'feature',
+                doc: story
+            })
+
+            // if success getting next story,
+            // add to vuex
+            if (nextStory) {
+                store.commit('SET_PAGE_DATA', {
+                    key: `features/${params.slug}/next`,
+                    data: nextStory
+                })
+            }
         }
     },
     computed: {
@@ -57,6 +78,12 @@ export default {
                 this.coverData &&
                 this.coverData.credits &&
                 this.coverData.image.url
+            )
+        },
+        nextStory() {
+            return _get(
+                this.$store.state.pageData,
+                `features/${this.$route.params.slug}/next`
             )
         },
         bgColor() {
