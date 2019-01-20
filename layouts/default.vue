@@ -5,6 +5,7 @@
         <site-sidebar />
         <site-menu />
         <site-overlay-form />
+        <loading-screen />
     </div>
 </template>
 
@@ -23,6 +24,12 @@ export default {
                 name
             })
         }
+    },
+    mounted() {
+        // set timer to remove load screen
+        setTimeout(() => {
+            this.$store.commit('REMOVE_LOADING')
+        }, 2500)
     },
     computed: {
         classes() {

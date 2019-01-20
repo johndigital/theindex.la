@@ -70,6 +70,9 @@ input {
 .site-header {
     z-index: 40;
 }
+section.loading-screen {
+    z-index: 80;
+}
 
 // Prismic content styling
 .entry {
