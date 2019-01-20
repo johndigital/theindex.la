@@ -1,5 +1,5 @@
 <template>
-    <div class="story-row">
+    <div v-if="!isHidden" class="story-row">
         <a-div class="image" :href="story | prismicLink">
             <no-ssr>
                 <responsive-image :object="defaultImage | prisToRezImg" />
@@ -24,6 +24,9 @@ export default {
         }
     },
     computed: {
+        isHidden() {
+            return _get(this.story, 'data.hidden') == 'Hidden'
+        },
         defaultImage() {
             return _get(this.story, 'data.grid[0].default-image')
         },
