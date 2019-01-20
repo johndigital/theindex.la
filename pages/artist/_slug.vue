@@ -89,12 +89,18 @@ export default {
         }
     },
     head() {
+        const meta = []
+        if (this.ogDescription) {
+            meta.push({ name: 'description', content: this.ogDescription })
+            meta.push({ name: 'og:description', content: this.ogDescription })
+        }
+
+        if (this.ogImage) {
+            meta.push({ name: 'og:image', content: this.ogImage })
+        }
+
         return {
-            meta: [
-                { name: 'description', content: this.ogDescription },
-                { name: 'og:description', content: this.ogDescription },
-                { name: 'og:image', content: this.ogImage }
-            ]
+            meta
         }
     },
     computed: {
