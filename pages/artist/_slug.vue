@@ -88,6 +88,15 @@ export default {
             })
         }
     },
+    head() {
+        return {
+            meta: [
+                { name: 'description', content: this.ogDescription },
+                { name: 'og:description', content: this.ogDescription },
+                { name: 'og:image', content: this.ogImage }
+            ]
+        }
+    },
     computed: {
         pageData() {
             const slug = this.$route.params.slug
@@ -160,6 +169,13 @@ export default {
         similarItems() {
             const slug = this.$route.params.slug
             return _get(this.$store.state, `pageData[artist/${slug}/similar]`)
+        },
+        ogImage() {
+            return _get(this.pageData, 'data.image.large.url')
+        },
+        ogDescription() {
+            const excerpt = _get(this.pageData, 'data.excerpt')
+            return this.$options.filters.prismicText(excerpt)
         }
     }
 }
