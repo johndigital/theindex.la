@@ -8,8 +8,9 @@
             />
             <transition name="fade" appear>
                 <responsive-image
+                    v-if="imageObject"
                     class="gallery-item"
-                    :object="item.item_image | prisToRezImg"
+                    :object="imageObject"
                 />
             </transition>
         </no-ssr>
@@ -27,9 +28,26 @@ export default {
         }
     },
     computed: {
+        imageObject() {
+            if (_get(this.item, 'item_image.id')) {
+                return this.$options.filters.prisToRezImg(this.item.item_image)
+            }
+            if (_get(this.item, 'image.url')) {
+                return {
+                    sizes: {
+                        fullscreen: {
+                            url: this.item.image.url,
+                            height: Number(this.item.image.height),
+                            width: Number(this.item.image.width)
+                        }
+                    }
+                }
+            }
+            return null
+        },
         ratio() {
-            const height = _get(this.item, 'item_image.dimensions.height')
-            const width = _get(this.item, 'item_image.dimensions.width')
+            const height = _get(this.imageObject, 'sizes.fullscreen.height')
+            const width = _get(this.imageObject, 'sizes.fullscreen.width')
             return height && width ? (height / width) * 100 : 56.25
         }
     }
