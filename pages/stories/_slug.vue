@@ -85,8 +85,7 @@ export default {
         hasCover() {
             return !!(
                 this.coverData &&
-                this.coverData.credits &&
-                this.coverData.image.url
+                (this.coverData.credits || this.coverData.image.url)
             )
         },
         nextStory() {

@@ -9,7 +9,8 @@
         </no-ssr>
         <div class="cover-meta">
             <div class="subtext">{{ credits }}</div>
-            <h2 class="title">{{ title }}</h2>
+            <img v-if="svgUrl" :src="svgUrl" :alt="title" class="svg-title" />
+            <h2 v-else class="title">{{ title }}</h2>
         </div>
     </section>
 </template>
@@ -40,6 +41,9 @@ export default {
         },
         image() {
             return _get(this.fields, 'image')
+        },
+        svgUrl() {
+            return _get(this.fields, 'svg-title.url')
         }
     }
 }
@@ -50,8 +54,17 @@ export default {
 
 .feature-cover {
     .cover-meta {
+        width: 100%;
+    }
+    .cover-meta .subtext,
+    .cover-meta .title {
         max-width: 720px;
         margin: auto;
+    }
+    .cover-meta .svg-title {
+        max-width: 445px;
+        margin: auto;
+        width: 60%;
     }
 
     &.format-split-left {
