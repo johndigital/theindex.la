@@ -47,6 +47,10 @@
             />
         </div>
 
+        <div v-if="content" class="artist-description">
+            <prismic-content class="entry" :content="content" />
+        </div>
+
         <div class="related-section">
             <h3 class="related-title">Related Artists</h3>
             <div class="related-grid">
@@ -116,6 +120,9 @@ export default {
         },
         siteLink() {
             return _get(this.pageData, 'data.website', '')
+        },
+        content() {
+            return _get(this.pageData, 'data.artist_description')
         },
         types() {
             const artistTypes = _get(this.pageData, 'data.types', []).map(
@@ -223,9 +230,9 @@ export default {
             margin-top: 30px;
         }
     }
-    .artist-gallery {
+    .artist-gallery,
+    .artist-description {
         padding-left: $desktop-padding;
-        padding-bottom: 240px;
         margin: auto;
         width: 40%;
     }
@@ -234,7 +241,9 @@ export default {
         padding-top: 60px;
     }
 
+    // related
     .related-section {
+        margin-top: 240px;
         position: relative;
         background-color: $white;
     }
