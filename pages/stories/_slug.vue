@@ -17,6 +17,15 @@
         >
             <span>Next Story</span>
         </nuxt-link>
+        <nuxt-link
+            v-else
+            to="../"
+            append
+            class="next-story"
+            :style="nextStyles"
+        >
+            <span>All Stories</span>
+        </nuxt-link>
     </main>
 </template>
 

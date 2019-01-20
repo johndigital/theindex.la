@@ -46,6 +46,9 @@ export default {
             margin-bottom: 60px;
             margin-top: 60px;
         }
+        h4 {
+            font-size: 28px;
+        }
         a {
             color: $dark-gray;
 

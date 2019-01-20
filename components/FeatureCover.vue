@@ -49,6 +49,11 @@ export default {
 @import '../assets/scss/vars';
 
 .feature-cover {
+    .cover-meta {
+        max-width: 720px;
+        margin: auto;
+    }
+
     &.format-split-left {
         margin-right: $desktop-padding;
         margin-left: $desktop-padding;
