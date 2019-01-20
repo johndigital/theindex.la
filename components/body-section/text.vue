@@ -37,9 +37,21 @@ export default {
         line-height: 2;
         color: inherit;
 
+        h3 + p,
+        h4 + p,
+        h5 + p {
+            margin-top: 0;
+        }
         p {
             margin-bottom: 60px;
             margin-top: 60px;
+        }
+        a {
+            color: $dark-gray;
+
+            &:hover {
+                color: $white;
+            }
         }
     }
 }
