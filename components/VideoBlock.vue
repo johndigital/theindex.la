@@ -34,6 +34,10 @@ export default {
         embed: {
             type: Object,
             default: () => ({})
+        },
+        placeholder: {
+            type: String,
+            default: ''
         }
     },
     data() {
@@ -48,7 +52,7 @@ export default {
             }
         },
         placeholderStyles() {
-            const thumb = _get(this.embed, 'thumbnail_url')
+            const thumb = this.placeholder || _get(this.embed, 'thumbnail_url')
             if (!thumb) return {}
             return {
                 'background-image': `url(${thumb})`

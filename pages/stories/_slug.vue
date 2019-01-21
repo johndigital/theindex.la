@@ -4,7 +4,7 @@
         <div class="body-sections">
             <component
                 v-for="(section, i) in bodySections"
-                :is="`body-section-${section.slice_type}`"
+                :is="getSliceName(section.slice_type)"
                 :section="section"
                 :key="i"
             />
@@ -129,6 +129,13 @@ export default {
             await this.$nextTick()
             const root = document.documentElement
             root.style.setProperty('--article-link-color', this.linkColor)
+        },
+        getSliceName(type) {
+            if (type == 'diptych') return 'body-section-diptych'
+            if (type == 'single-image') return 'body-section-single-image'
+            if (type == 'text') return 'body-section-text'
+            if (type == 'video') return 'body-section-video'
+            if (type == 'video_embed') return 'body-section-video-embed'
         }
     }
 }
