@@ -2,7 +2,7 @@
     <div v-if="!isHidden" class="story-row">
         <a-div class="image" :href="story | prismicLink">
             <no-ssr>
-                <responsive-image :object="defaultImage | prisToRezImg" />
+                <responsive-image :object="activeImage | prisToRezImg" />
             </no-ssr>
             <div v-if="svgImage" class="svg-meta"><img :src="svgImage" /></div>
             <div v-else class="meta">
@@ -21,11 +21,24 @@ export default {
         story: {
             type: Object,
             required: true
+        },
+        pinned: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
         isHidden() {
             return _get(this.story, 'data.hidden') == 'Hidden'
+        },
+        activeImage() {
+            if (this.pinned && this.pinnedImage && this.pinnedImage.url) {
+                return this.pinnedImage
+            }
+            return this.defaultImage
+        },
+        pinnedImage() {
+            return _get(this.story, 'data.grid[0].pinned-image')
         },
         defaultImage() {
             return _get(this.story, 'data.grid[0].default-image')

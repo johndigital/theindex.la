@@ -1,7 +1,12 @@
 <template>
     <main class="stories">
         <div class="inner">
-            <story-row v-for="(story, i) in stories" :key="i" :story="story" />
+            <story-row
+                v-for="(story, i) in stories"
+                :key="i"
+                :story="story"
+                :pinned="i == 0"
+            />
         </div>
     </main>
 </template>
