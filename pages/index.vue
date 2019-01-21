@@ -12,6 +12,7 @@
                 <div v-else class="no-results">No Artists</div>
             </div>
         </transition>
+        <div v-if="loadingData" class="loading-area"><loading-spinner /></div>
     </main>
 </template>
 
@@ -25,13 +26,25 @@ export default {
         const artists = await fetchByQs({
             query,
             store,
-            pageSize: 20
+            pageSize: 20,
+            page: 1
         })
 
         return store.commit('SET_PAGE_DATA', {
-            key: 'artists',
+            key: `artists/page/1`,
             data: artists
         })
+    },
+    watch: {
+        atBottom: 'loadNextPage'
+    },
+    data() {
+        return {
+            loadingData: false,
+            reachedEnd: false,
+            timer: null,
+            page: 1
+        }
     },
     computed: {
         innerClasses() {
@@ -41,8 +54,59 @@ export default {
                 { 'is-list-view': !this.$store.state.gridView }
             ]
         },
+        atBottom() {
+            const { winHeight, docHeight, sTop } = this.$store.state.browser
+            return sTop + winHeight > docHeight - 300
+        },
         artists() {
-            return _get(this.$store.state, 'pageData.artists', [])
+            let artists = []
+            for (let i = 1; i <= this.page; i++) {
+                const pageItems = _get(
+                    this.$store.state,
+                    `pageData[artists/page/${i}]`,
+                    []
+                )
+                artists = artists.concat(pageItems)
+            }
+            return artists
+        }
+    },
+    methods: {
+        async loadNextPage() {
+            clearTimeout(this.timer)
+            await this.$nextTick()
+            if (this.atBottom && !this.loadingData && !this.reachedEnd) {
+                console.log('loading next page...')
+                this.loadingData = true
+
+                // set next page and run query
+                const nextPage = this.page + 1
+                const artists = await fetchByQs({
+                    query: this.$route.query,
+                    store: this.$store,
+                    pageSize: 20,
+                    page: nextPage
+                })
+
+                // only if we have results...
+                if (artists.length) {
+                    // commit to store
+                    this.$store.commit('SET_PAGE_DATA', {
+                        key: `artists/page/${nextPage}`,
+                        data: artists
+                    })
+
+                    // increment page
+                    this.page = this.page + 1
+                } else {
+                    console.log('reached the end')
+                    this.reachedEnd = true
+                }
+
+                // set not loading, and set a timer to run again
+                setTimeout(this.loadNextPage, 3500)
+                this.loadingData = false
+            }
         }
     }
 }
@@ -63,6 +127,13 @@ main.front-page {
         padding-left: $desktop-padding;
         padding-top: 60px;
         font-size: 28px;
+    }
+
+    // loading
+    .loading-area {
+        text-align: center;
+        padding: 60px;
+        padding-top: 0;
     }
 
     // grid mode
