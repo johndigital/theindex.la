@@ -63,6 +63,13 @@ export default {
             }
         }
     },
+    watch: {
+        linkColor: 'setLinkColor'
+    },
+    async mounted() {
+        await this.$nextTick()
+        this.setLinkColor()
+    },
     computed: {
         styles() {
             return {
@@ -108,10 +115,20 @@ export default {
                 'transparent'
             )
         },
+        linkColor() {
+            return _get(this.pageData, 'data.colors[0].link_color') || '#a0a0a0'
+        },
         nextStyles() {
             return {
                 borderColor: this.textColor
             }
+        }
+    },
+    methods: {
+        async setLinkColor() {
+            await this.$nextTick()
+            const root = document.documentElement
+            root.style.setProperty('--article-link-color', this.linkColor)
         }
     }
 }

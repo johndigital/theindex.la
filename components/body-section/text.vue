@@ -50,10 +50,10 @@ export default {
             font-size: 28px;
         }
         a {
-            color: $dark-gray;
+            color: var(--article-link-color);
 
             &:hover {
-                color: $white;
+                color: inherit;
             }
         }
     }

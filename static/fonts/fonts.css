@@ -11,10 +11,34 @@
         900 - Black (Heavy)
 */
 
+/* Regular */
 @font-face {
     font-family: 'GT Walsheim';
     src: url('GT-Walsheim-Regular.woff') format('woff'),
         url('GT-Walsheim-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: 400;
+}
+@font-face {
+    font-family: 'GT Walsheim';
+    src: url('GT-Walsheim-Regular-Oblique.woff') format('woff'),
+        url('GT-Walsheim-Regular-Oblique.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* Medium */
+@font-face {
+    font-family: 'GT Walsheim';
+    src: url('GT-Walsheim-Medium.woff') format('woff'),
+        url('GT-Walsheim-Medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'GT Walsheim';
+    src: url('GT-Walsheim-Medium-Oblique.woff') format('woff'),
+        url('GT-Walsheim-Medium-Oblique.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 500;
 }
