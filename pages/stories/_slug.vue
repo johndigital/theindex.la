@@ -136,6 +136,7 @@ export default {
             if (type == 'text') return 'body-section-text'
             if (type == 'video') return 'body-section-video'
             if (type == 'video_embed') return 'body-section-video-embed'
+            if (type == 'embed_code') return 'body-section-embed-code'
         }
     }
 }
