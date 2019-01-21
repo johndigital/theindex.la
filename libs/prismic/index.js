@@ -1,3 +1,4 @@
+import _sampleSize from 'lodash/sampleSize'
 import Prismic from 'prismic-javascript'
 import _get from 'lodash/get'
 
@@ -141,6 +142,40 @@ export const fetchNextDocument = async ops => {
     return null
 }
 
+// Algorithm to find any docs
+// related to a given doc
+export const fetchRelated = async doc => {
+    const api = await getApi()
+
+    // make sure we have a document
+    if (doc) {
+        // map IDs into array
+        let catIDs = doc.data.categories
+            .map(cat => {
+                return _get(cat, 'category.id')
+            })
+            .filter(Boolean)
+
+        // build query
+        let predicates = [
+            Prismic.Predicates.at('document.type', doc.type),
+            Prismic.Predicates.not('document.id', doc.id),
+            Prismic.Predicates.any(`my.${doc.type}.categories.category`, catIDs)
+        ]
+
+        // run query
+        const { results } = await api.query(predicates, {
+            pageSize: 6,
+            orderings: '[my.feature.timestamp desc]'
+        })
+
+        // return results filtered by
+        return results
+    }
+
+    return null
+}
+
 // Query by type
 export const fetchByType = async ops => {
     const api = await getApi()
@@ -168,19 +203,6 @@ export const fetchByType = async ops => {
         pageSize: settings.pageSize,
         page: settings.page,
         orderings: settings.orderings
-    })
-    return results
-}
-
-// Query Similar
-export const fetchSimilar = async id => {
-    const api = await getApi()
-
-    const predicates = [Prismic.Predicates.similar(id, 5)]
-
-    // run query
-    const { results } = await api.query(predicates, {
-        pageSize: 10
     })
     return results
 }

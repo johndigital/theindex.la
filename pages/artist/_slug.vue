@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { fetchByType, fetchSimilar } from '~/libs/prismic'
+import { fetchByType, fetchRelated } from '~/libs/prismic'
 import _get from 'lodash/get'
 
 export default {
@@ -82,10 +82,7 @@ export default {
             })
 
             // get similar
-            const similar = await fetchByType({
-                type: 'artist',
-                pageSize: 6
-            })
+            const similar = await fetchRelated(artist)
             store.commit('SET_PAGE_DATA', {
                 key: `artist/${params.slug}/similar`,
                 data: similar
