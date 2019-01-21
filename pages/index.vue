@@ -12,7 +12,11 @@
                 <div v-else class="no-results">No Artists</div>
             </div>
         </transition>
-        <div v-if="loadingData" class="loading-area"><loading-spinner /></div>
+        <div class="loading-area">
+            <transition name="fade">
+                <loading-spinner v-if="loadingData" />
+            </transition>
+        </div>
     </main>
 </template>
 
@@ -132,8 +136,9 @@ main.front-page {
     // loading
     .loading-area {
         text-align: center;
-        padding: 60px;
         padding-top: 0;
+        padding: 60px;
+        height: 60px;
     }
 
     // grid mode
