@@ -62,7 +62,8 @@ export default {
         h3 {
             color: $black;
         }
-        strong {
+        strong,
+        strong a {
             color: $black;
         }
         a {
