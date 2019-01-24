@@ -5,13 +5,28 @@
             class="loading-screen"
             aria-hidden="true"
         >
-            <svg-logo />
+            <story-splash v-if="hasSplash" />
+            <svg-logo v-else />
         </section>
     </transition>
 </template>
 
 <script>
-export default {}
+import _get from 'lodash/get'
+
+export default {
+    computed: {
+        hasSplash() {
+            const splashEnabled =
+                _get(
+                    this.$store.state.pageData,
+                    `features/${this.$route.params.slug}.data.takeover_enabled`
+                ) == 'Enabled'
+
+            return splashEnabled && this.$route.name == 'stories-slug'
+        }
+    }
+}
 </script>
 
 <style lang="scss">
