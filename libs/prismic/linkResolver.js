@@ -13,6 +13,10 @@ const resolver = doc => {
 
     // external link
     if (doc.link_type === 'Web') {
+        if (String(doc.url).match(/:\/\/#/g)) {
+            return String(doc.url).replace(/^(http|https):\/\//g, '')
+        }
+
         return doc.url
     }
 

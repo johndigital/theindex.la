@@ -34,6 +34,12 @@
 import _get from 'lodash/get'
 
 export default {
+    mounted() {
+        this.resolveHashAction()
+    },
+    watch: {
+        '$route.hash': 'resolveHashAction'
+    },
     computed: {
         siteMeta() {
             return _get(this.$store.state, 'pageData.meta')
@@ -48,6 +54,14 @@ export default {
     methods: {
         closeMenu() {
             this.$store.commit('CLOSE_MENU')
+        },
+        resolveHashAction() {
+            if (this.$route.hash === '#submit') {
+                this.$store.commit('OPEN_SUBMIT')
+            }
+            if (this.$route.hash === '#subscribe') {
+                this.$store.commit('OPEN_SUBSCRIBE')
+            }
         }
     }
 }

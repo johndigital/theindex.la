@@ -3,7 +3,7 @@ import _kebabCase from 'lodash/kebabCase'
 import _camelCase from 'lodash/camelCase'
 import Vue from 'vue'
 
-export default async ({ store }, inject) => {
+export default async ({ store, route }, inject) => {
     // external components
     Vue.component('responsive-image', require('fh-components/responsive-image'))
 
@@ -41,6 +41,11 @@ export default async ({ store }, inject) => {
         key: 'meta',
         data: metaDocs.length ? metaDocs[0] : null
     })
+
+    // not on about page, show loading
+    if (route.path !== '/about') {
+        store.commit('SHOW_LOADING')
+    }
 
     // globally register everything in the /components folder
     const components = require.context('~/components', true)
