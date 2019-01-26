@@ -134,4 +134,19 @@ export default {
         transform: translateY(-100%);
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .site-sidebar {
+        font-size: 16px;
+        width: 80%;
+
+        .search-control-filter {
+            margin-top: 40px;
+        }
+        .search-control-sort {
+            margin-top: 60px;
+        }
+    }
+}
 </style>

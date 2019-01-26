@@ -125,6 +125,13 @@ section.loading-screen {
     }
 }
 
+@media #{ $lt-phone } {
+    input,
+    button {
+        font-size: 16px;
+    }
+}
+
 // Basic fade
 .fade-enter-active,
 .fade-leave-active {

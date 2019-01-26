@@ -58,4 +58,14 @@ export default {
         }
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .bs-text {
+        .text-inner {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+        }
+    }
+}
 </style>

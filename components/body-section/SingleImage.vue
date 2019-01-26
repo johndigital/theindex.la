@@ -92,4 +92,15 @@ export default {
         }
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .bs-single-image {
+        &.position-right,
+        &.position-left {
+            margin-right: $mobile-padding;
+            margin-left: $mobile-padding;
+        }
+    }
+}
 </style>

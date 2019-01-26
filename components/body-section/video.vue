@@ -22,4 +22,12 @@ export default {
     max-width: 960px;
     margin: auto;
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .bs-video {
+        padding-right: $mobile-padding;
+        padding-left: $mobile-padding;
+    }
+}
 </style>

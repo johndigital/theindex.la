@@ -121,7 +121,7 @@ export default {
 
 main.front-page {
     .inner {
-        padding: 90px 0 50px;
+        padding-top: 90px;
         position: relative;
     }
 
@@ -147,6 +147,25 @@ main.front-page {
         padding-left: $desktop-padding;
         flex-wrap: wrap;
         display: flex;
+    }
+}
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    main.front-page {
+        .inner {
+            padding-top: 85px;
+        }
+        .loading-spinner {
+            height: 25px;
+            width: 25px;
+        }
+        .loading-area {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+            padding-bottom: 30px;
+            padding-top: 30px;
+        }
     }
 }
 </style>

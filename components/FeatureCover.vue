@@ -95,4 +95,18 @@ export default {
         }
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .feature-cover {
+        &.format-split-left {
+            margin-right: $mobile-padding;
+            margin-left: $mobile-padding;
+        }
+        &.format-split-right {
+            margin-right: $mobile-padding;
+            margin-left: $mobile-padding;
+        }
+    }
+}
 </style>

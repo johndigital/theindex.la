@@ -92,4 +92,14 @@ export default {
         font-size: 40px;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .story-row {
+        .meta {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+        }
+    }
+}
 </style>

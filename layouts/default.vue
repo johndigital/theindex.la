@@ -53,11 +53,25 @@ export default {
 @import '../assets/scss/vars';
 
 .container {
+    overflow-x: hidden;
+
     main {
         transition: margin-left 400ms $easeInOutQuad;
     }
     &.sidebar-open main {
         margin-left: 320px;
+    }
+}
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .container {
+        main {
+            width: 100%;
+        }
+        &.sidebar-open main {
+            margin-left: 80%;
+        }
     }
 }
 </style>

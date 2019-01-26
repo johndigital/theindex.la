@@ -184,4 +184,35 @@ export default {
         stroke: $black;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .site-header {
+        width: 100%;
+        height: 85px;
+
+        // sidebar
+        .sidebar-open & {
+            left: 80%;
+        }
+
+        // headroom
+        &.headroom--unpinned {
+            transform: none;
+        }
+
+        .toggle-sidebar,
+        .go-back {
+            padding: 30px;
+            left: #{$mobile-padding - 30};
+        }
+        .toggle-menu {
+            padding: 30px;
+            right: #{$mobile-padding - 30};
+        }
+        .toggle-grid {
+            display: none;
+        }
+    }
+}
 </style>

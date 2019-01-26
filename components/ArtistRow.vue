@@ -189,4 +189,20 @@ export default {
         }
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .artist-row {
+        grid-template-columns: 40% 1fr;
+        padding-right: $mobile-padding;
+        padding-left: $mobile-padding;
+        padding-bottom: 30px;
+        padding-top: 30px;
+
+        .categories,
+        .city {
+            display: none;
+        }
+    }
+}
 </style>

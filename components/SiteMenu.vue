@@ -171,4 +171,23 @@ export default {
         transform: translateY(30px);
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .site-menu {
+        justify-content: flex-end;
+
+        .main-menu,
+        .main-menu button {
+            font-size: 25px;
+        }
+
+        .logo {
+            display: none;
+        }
+        .menus {
+            margin-right: $mobile-padding;
+        }
+    }
+}
 </style>
