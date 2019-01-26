@@ -34,4 +34,16 @@ export default {
         margin: auto;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .bs-embed-code {
+        margin-top: 60px;
+
+        .iframe {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+        }
+    }
+}
 </style>

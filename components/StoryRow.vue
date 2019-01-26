@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isHidden" class="story-row">
+    <div v-if="!isHidden" :class="classes">
         <a-div class="image" :href="story | prismicLink">
             <no-ssr>
                 <responsive-image :object="activeImage | prisToRezImg" />
@@ -31,6 +31,13 @@ export default {
         isHidden() {
             return _get(this.story, 'data.hidden') == 'Hidden'
         },
+        gridAlign() {
+            if (this.pinned) return 'none'
+            return _get(this.story, 'data.grid[0].style') || 'none'
+        },
+        classes() {
+            return ['story-row', `align-${this.gridAlign}`]
+        },
         activeImage() {
             if (this.pinned && this.pinnedImage && this.pinnedImage.url) {
                 return this.pinnedImage
@@ -60,6 +67,15 @@ export default {
 @import '../assets/scss/vars';
 
 .story-row {
+    &.align-right {
+        // max-width: 960px;
+        margin-left: 20%;
+    }
+    &.align-left {
+        // max-width: 960px;
+        margin-right: 20%;
+    }
+
     .image {
         position: relative;
         overflow: hidden;
@@ -96,6 +112,12 @@ export default {
 // mobile breakpoints
 @media #{ $lt-phone } {
     .story-row {
+        &.align-right,
+        &.align-left {
+            margin-right: initial;
+            margin-left: initial;
+        }
+
         .meta {
             padding-right: $mobile-padding;
             padding-left: $mobile-padding;
