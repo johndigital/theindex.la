@@ -87,6 +87,19 @@ export default {
     }
 }
 
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .site-overlay-form {
+        form {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+        }
+        input {
+            font-size: 20px;
+        }
+    }
+}
+
 .overlay-fade-enter-active,
 .overlay-fade-leave-active {
     transition: opacity 450ms ease;

@@ -29,6 +29,7 @@
 export default {
     data() {
         return {
+            loading: false,
             success: false,
             error: false,
             honeypot: '',
@@ -42,6 +43,9 @@ export default {
     },
     methods: {
         async onSubmit() {
+            if (this.loading) return
+
+            this.loading = true
             try {
                 const response = await fetch('/api/submit', {
                     method: 'POST',
@@ -66,7 +70,9 @@ export default {
                 } else {
                     throw new Error('Failed response.')
                 }
+                this.loading = false
             } catch (err) {
+                this.loading = false
                 this.error = true
             }
         }
