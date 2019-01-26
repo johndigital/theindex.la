@@ -156,6 +156,11 @@ main.front-page {
         .inner {
             padding-top: 85px;
         }
+        .no-results {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+            text-align: center;
+        }
         .loading-spinner {
             height: 25px;
             width: 25px;

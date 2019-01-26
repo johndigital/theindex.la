@@ -260,4 +260,53 @@ export default {
         display: flex;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .artist-detail {
+        font-size: 16px;
+
+        .artist-info {
+            margin-bottom: 60px;
+            position: static;
+            padding: 0 25px;
+            width: initial;
+        }
+        .artist-gallery,
+        .artist-description {
+            width: initial;
+            padding: 0 25px;
+        }
+        .gallery-item {
+            padding-bottom: 0;
+            padding-top: $mobile-padding;
+        }
+
+        // related
+        .related-section {
+            margin-top: 120px;
+        }
+        .related-title {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+            margin-bottom: 30px;
+            font-size: 25px;
+        }
+
+        // grid
+        .related-grid {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+
+            .artist-row {
+                width: 100%;
+            }
+            .artist-row .image {
+                margin-right: 0;
+                margin-left: 0;
+                width: initial;
+            }
+        }
+    }
+}
 </style>

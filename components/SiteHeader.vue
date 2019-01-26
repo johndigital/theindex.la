@@ -212,9 +212,9 @@ export default {
             left: #{$mobile-padding - 30};
         }
         .filter-item-list {
-            padding: 30px;
-            right: #{$mobile-padding + 10};
-            left: #{$mobile-padding + 10};
+            padding: 30px 0;
+            right: 70px;
+            left: 70px;
         }
         .toggle-menu {
             padding: 30px;

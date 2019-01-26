@@ -8,7 +8,7 @@
                         <responsive-image
                             :object="image | prisToRezImg"
                             :aspect="100"
-                            fit="contain"
+                            :fit="isMobile ? 'cover' : 'contain'"
                         />
                     </a-div>
                 </transition>
@@ -46,6 +46,9 @@ export default {
         }
     },
     computed: {
+        isMobile() {
+            return this.$store.getters.isMobile
+        },
         image() {
             return _get(this.artist, 'data.featureImage')
         },
