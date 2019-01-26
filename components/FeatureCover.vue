@@ -5,6 +5,7 @@
                 class="cover-image"
                 :object="image | prisToRezImg"
                 :fill-space="isFullbleed"
+                v-bind="bindVal"
             />
         </no-ssr>
         <div class="cover-meta">
@@ -41,6 +42,19 @@ export default {
         },
         image() {
             return _get(this.fields, 'image')
+        },
+        videoUrl() {
+            const coverVid = _get(this.fields, 'cove_video')
+            if (coverVid && coverVid.link_type === 'Media') return coverVid.url
+            else if (coverVid && coverVid.link_type === 'Web')
+                return coverVid.url
+            return null
+        },
+        bindVal() {
+            if (!this.videoUrl) return {}
+            return {
+                'video-src': this.videoUrl
+            }
         },
         svgUrl() {
             return _get(this.fields, 'svg-title.url')
