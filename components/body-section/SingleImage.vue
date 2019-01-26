@@ -96,6 +96,8 @@ export default {
 // mobile breakpoints
 @media #{ $lt-phone } {
     .bs-single-image {
+        margin-top: 60px;
+
         &.position-right,
         &.position-left {
             margin-right: $mobile-padding;

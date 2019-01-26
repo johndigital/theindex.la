@@ -76,4 +76,21 @@ export default {
         }
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .bs-diptych {
+        margin-top: 60px;
+        flex-direction: column;
+
+        .diptych-left,
+        .diptych-right {
+            width: 100%;
+            padding: 0;
+        }
+        .diptych-right {
+            margin-top: 30px;
+        }
+    }
+}
 </style>

@@ -62,9 +62,16 @@ export default {
 // mobile breakpoints
 @media #{ $lt-phone } {
     .bs-text {
+        margin-top: 60px;
+
         .text-inner {
             padding-right: $mobile-padding;
             padding-left: $mobile-padding;
+        }
+        .entry {
+            h4 {
+                font-size: 22px;
+            }
         }
     }
 }

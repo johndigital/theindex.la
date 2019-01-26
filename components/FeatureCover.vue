@@ -54,6 +54,7 @@ export default {
 
 .feature-cover {
     .cover-meta {
+        box-sizing: border-box;
         width: 100%;
     }
     .cover-meta .subtext,
@@ -99,6 +100,28 @@ export default {
 // mobile breakpoints
 @media #{ $lt-phone } {
     .feature-cover {
+        justify-content: center;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-top: 85px;
+
+        .cover-image,
+        .cover-meta {
+            flex: initial;
+            margin: 0;
+        }
+        &.format-split-left,
+        &.format-split-right {
+            .cover-image,
+            .cover-meta {
+                flex: initial;
+                margin: 0;
+            }
+        }
+        .cover-meta .svg-title {
+            width: 100%;
+        }
+
         &.format-split-left {
             margin-right: $mobile-padding;
             margin-left: $mobile-padding;

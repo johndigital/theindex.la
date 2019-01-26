@@ -151,6 +151,7 @@ export default {
 .feature-detail {
     overflow: hidden;
     min-height: 100vh;
+    font-size: 16px;
 
     a {
         color: inherit;
@@ -182,6 +183,19 @@ export default {
         margin-top: 240px;
         font-size: 32px;
         display: block;
+    }
+}
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .feature-detail {
+        .cover-meta .title {
+            margin-top: 10px;
+            font-size: 30px;
+        }
+        .next-story {
+            margin-top: 120px;
+        }
     }
 }
 </style>

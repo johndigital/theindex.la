@@ -96,4 +96,11 @@ export default {
         width: 100%;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .video-block {
+        margin-top: 60px;
+    }
+}
 </style>
