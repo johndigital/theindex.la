@@ -49,4 +49,17 @@ export default {
         margin-bottom: 120px;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .stories {
+        .inner {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+        }
+        .story-row {
+            margin-bottom: $mobile-padding;
+        }
+    }
+}
 </style>

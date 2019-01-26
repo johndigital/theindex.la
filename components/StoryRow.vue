@@ -99,6 +99,17 @@ export default {
         .meta {
             padding-right: $mobile-padding;
             padding-left: $mobile-padding;
+            text-align: center;
+        }
+        .story-credit {
+            font-size: 14px;
+        }
+        .story-title {
+            margin-top: 5px;
+            font-size: 20px;
+        }
+        .svg-meta {
+            width: 80%;
         }
     }
 }
