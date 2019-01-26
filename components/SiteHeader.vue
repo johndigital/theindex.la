@@ -151,7 +151,11 @@ export default {
     .filter-item-list {
         position: absolute;
         padding: 35px;
-        left: 135px;
+        left: #{$desktop-padding + 25};
+        right: #{$desktop-padding + 75};
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     .toggle-menu {
         position: absolute;
@@ -190,6 +194,7 @@ export default {
     .site-header {
         width: 100%;
         height: 85px;
+        font-size: 16px;
 
         // sidebar
         .sidebar-open & {
@@ -205,6 +210,11 @@ export default {
         .go-back {
             padding: 30px;
             left: #{$mobile-padding - 30};
+        }
+        .filter-item-list {
+            padding: 30px;
+            right: #{$mobile-padding + 10};
+            left: #{$mobile-padding + 10};
         }
         .toggle-menu {
             padding: 30px;

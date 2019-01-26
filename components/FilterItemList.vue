@@ -61,8 +61,7 @@ export default {
 
         a,
         .plus {
-            display: block;
-            float: left;
+            display: inline;
         }
     }
     .filter-item a {
