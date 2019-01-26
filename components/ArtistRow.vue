@@ -1,5 +1,5 @@
 <template>
-    <div class="artist-row">
+    <div class="artist-row wiv" v-in-view>
         <div class="column image">
             <no-ssr>
                 <div class="placeholder" slot="placeholder" />

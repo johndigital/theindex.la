@@ -1,5 +1,5 @@
 <template>
-    <div class="artist-gallery-item">
+    <div class="artist-gallery-item wiv" v-in-view>
         <no-ssr>
             <div
                 class="placeholder"

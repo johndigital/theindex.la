@@ -1,5 +1,5 @@
 <template>
-    <div class="bs-diptych">
+    <div class="bs-diptych wiv" v-in-view>
         <div class="diptych-left">
             <no-ssr>
                 <responsive-image

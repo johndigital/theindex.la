@@ -1,5 +1,7 @@
 <template>
-    <div class="bs-text"><div class="text-inner entry" v-html="content" /></div>
+    <div class="bs-text wiv" v-in-view>
+        <div class="text-inner entry" v-html="content" />
+    </div>
 </template>
 
 <script>

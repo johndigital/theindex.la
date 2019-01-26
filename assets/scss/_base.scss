@@ -125,6 +125,15 @@ section.loading-screen {
     }
 }
 
+// WIV
+.wiv {
+    transition: opacity 750ms;
+
+    &.below-view {
+        opacity: 0;
+    }
+}
+
 // mobile
 @media #{ $lt-phone } {
     input,

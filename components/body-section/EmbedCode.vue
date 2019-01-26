@@ -1,5 +1,7 @@
 <template>
-    <div class="bs-embed-code"><div class="iframe" v-html="html" /></div>
+    <div class="bs-embed-code wiv" v-in-view>
+        <div class="iframe" v-html="html" />
+    </div>
 </template>
 
 <script>

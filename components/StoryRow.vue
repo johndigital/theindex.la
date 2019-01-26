@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isHidden" :class="classes">
+    <div v-if="!isHidden" :class="classes" v-in-view>
         <a-div class="image" :href="story | prismicLink">
             <no-ssr>
                 <responsive-image :object="activeImage | prisToRezImg" />
@@ -36,7 +36,7 @@ export default {
             return _get(this.story, 'data.grid[0].style') || 'none'
         },
         classes() {
-            return ['story-row', `align-${this.gridAlign}`]
+            return ['story-row', `align-${this.gridAlign}`, 'wiv']
         },
         activeImage() {
             if (this.pinned && this.pinnedImage && this.pinnedImage.url) {

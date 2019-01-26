@@ -40,6 +40,10 @@ export default {
         })
     },
     watch: {
+        '$route.query'() {
+            this.reachedEnd = false
+            this.page = 1
+        },
         atBottom: 'loadNextPage'
     },
     data() {

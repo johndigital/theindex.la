@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes">
+    <div :class="classes" v-in-view>
         <no-ssr
             ><responsive-image class="image" :object="image | prisToRezImg"
         /></no-ssr>
@@ -21,6 +21,7 @@ export default {
         classes() {
             return [
                 'bs-single-image',
+                'wiv',
                 `position-${this.position}`,
                 `format-${this.style}`
             ]

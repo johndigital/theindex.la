@@ -1,5 +1,7 @@
 <template>
-    <div class="bs-video"><video-block :embed="section.value" /></div>
+    <div class="bs-video wiv" v-in-view>
+        <video-block :embed="section.value" />
+    </div>
 </template>
 
 <script>

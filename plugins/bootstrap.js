@@ -6,6 +6,7 @@ import Vue from 'vue'
 export default async ({ store, route }, inject) => {
     // external components
     Vue.component('responsive-image', require('fh-components/responsive-image'))
+    Vue.directive('in-view', require('fh-components/v-in-view'))
 
     // preload global data
     const [

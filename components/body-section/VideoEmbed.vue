@@ -1,5 +1,5 @@
 <template>
-    <div class="bs-video-embed">
+    <div class="bs-video-embed wiv" v-in-view>
         <video-block :embed="embed" :placeholder="placeholder" />
     </div>
 </template>
