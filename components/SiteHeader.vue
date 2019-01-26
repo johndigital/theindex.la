@@ -87,13 +87,19 @@ export default {
         isFeatureStory() {
             return this.$route.name == 'stories-slug'
         },
+        referred() {
+            return this.$store.state.browser.referredFrom
+        },
         backLink() {
+            const referred = this.referred
             if (this.isFeatureStory) {
                 return { path: '../', append: true }
-            } else if (!this.$store.state.browser.referredFrom) {
-                return '/'
+
+                // came from filter page, go back to last filter
+            } else if (referred && referred.name === 'index') {
+                return referred.fullPath
             }
-            return this.$store.state.browser.referredFrom.fullPath
+            return '/'
         },
         fgColor() {
             const theme = this.colorTheme
