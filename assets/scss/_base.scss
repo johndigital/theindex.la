@@ -125,10 +125,18 @@ section.loading-screen {
     }
 }
 
+// mobile
 @media #{ $lt-phone } {
     input,
     button {
         font-size: 16px;
+    }
+    .entry {
+        font-size: 16px;
+
+        h3 {
+            font-size: 25px;
+        }
     }
 }
 

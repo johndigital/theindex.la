@@ -85,4 +85,17 @@ export default {
         font-size: 16px;
     }
 }
+
+// mobile breakpoints
+@media #{ $lt-phone } {
+    .single-page {
+        .inner {
+            padding-right: $mobile-padding;
+            padding-left: $mobile-padding;
+        }
+        .entry {
+            padding-top: 40px;
+        }
+    }
+}
 </style>
