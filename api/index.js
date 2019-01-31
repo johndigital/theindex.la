@@ -1,3 +1,7 @@
+require('babel-register')({
+    presets: ['env'],
+    plugins: ['transform-es2015-destructuring']
+})
 require('../env')
 
 const express = require('express')
@@ -15,6 +19,7 @@ app.use(bodyParser.json())
 // routes
 router.post('/submit', require('./submit'))
 router.post('/subscribe', require('./subscribe'))
+router.get('/kEELwVXC7tpeP7HzTL/export', require('./export'))
 
 // fallback, redirect
 router.use((req, res) => {

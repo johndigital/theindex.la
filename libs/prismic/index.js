@@ -118,11 +118,13 @@ export const fetchNextDocument = async ops => {
     const api = await getApi()
 
     // resolve settings
-    const settings = {
-        type: 'feature',
-        doc: null,
-        ...ops
-    }
+    const settings = Object.assign(
+        {
+            type: 'feature',
+            doc: null
+        },
+        ops
+    )
 
     // make sure we have a document
     if (settings.doc) {
@@ -186,14 +188,16 @@ export const fetchByType = async ops => {
     const api = await getApi()
 
     // resolve settings
-    const settings = {
-        type: 'page',
-        slug: '',
-        pageSize: 40,
-        page: 1,
-        orderings: '',
-        ...ops
-    }
+    const settings = Object.assign(
+        {
+            type: 'page',
+            slug: '',
+            pageSize: 40,
+            page: 1,
+            orderings: ''
+        },
+        ops
+    )
 
     const predicates = [Prismic.Predicates.at('document.type', settings.type)]
 
