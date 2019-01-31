@@ -3,9 +3,14 @@ import Prismic from 'prismic-javascript'
 import _get from 'lodash/get'
 
 // helper to init API
-let api
+const CACHE_TIME = 3 * 60 * 1000
+let api, stamp
 const getApi = () => {
-    if (!api) api = Prismic.api(process.env.prismicUrl)
+    const isExpired = new Date().getTime() - stamp > CACHE_TIME
+    if (!api || isExpired) {
+        stamp = new Date().getTime()
+        api = Prismic.api(process.env.prismicUrl)
+    }
     return api
 }
 
