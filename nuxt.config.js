@@ -19,8 +19,13 @@ module.exports = {
             { name: 'og:url', content: 'https://theindex.la' },
             { name: 'og:type', content: 'website' },
             { name: 'og:title', content: 'Index' },
-            { name: 'og:image', content: '/images/screenshot.png' },
             {
+                hid: 'og:image',
+                name: 'og:image',
+                content: '/images/screenshot.png'
+            },
+            {
+                hid: 'og:description',
                 name: 'og:description',
                 content:
                     'Index is a library of contemporary photographers and filmmakers—a digital tool for finding talent from around the world.'

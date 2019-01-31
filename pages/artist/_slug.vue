@@ -92,15 +92,28 @@ export default {
     head() {
         const meta = []
         if (this.ogDescription) {
-            meta.push({ name: 'description', content: this.ogDescription })
-            meta.push({ name: 'og:description', content: this.ogDescription })
+            meta.push({
+                hid: 'description',
+                name: 'description',
+                content: this.ogDescription
+            })
+            meta.push({
+                hid: 'og:description',
+                name: 'og:description',
+                content: this.ogDescription
+            })
         }
 
         if (this.ogImage) {
-            meta.push({ name: 'og:image', content: this.ogImage })
+            meta.push({
+                hid: 'og:image',
+                name: 'og:image',
+                content: this.ogImage
+            })
         }
 
         return {
+            title: `Index - ${this.title}`,
             meta
         }
     },
@@ -181,7 +194,11 @@ export default {
             return _get(this.$store.state, `pageData[artist/${slug}/similar]`)
         },
         ogImage() {
-            return _get(this.pageData, 'data.image.large.url')
+            const firstImage = _get(
+                this.galleryItems,
+                '[0].item_image.large.url'
+            )
+            return _get(this.pageData, 'data.image.large.url') || firstImage
         },
         ogDescription() {
             const excerpt = _get(this.pageData, 'data.excerpt')

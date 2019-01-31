@@ -25,12 +25,21 @@ export default {
             })
         }
     },
+    head() {
+        return {
+            title: `Index - ${this.title}`
+        }
+    },
     computed: {
         pageData() {
             return _get(
                 this.$store.state,
                 `pageData[pages/${this.$route.params.slug}]`
             )
+        },
+        title() {
+            const titleData = _get(this.pageData, 'data.title')
+            return this.$options.filters.prismicText(titleData)
         },
         content() {
             return _get(this.pageData, 'data.content')
