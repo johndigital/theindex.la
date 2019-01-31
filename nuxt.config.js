@@ -3,6 +3,41 @@ require('babel-register')({
 })
 require('babel-polyfill')
 
+const scrollBehavior = (to, from, savedPosition) => {
+    const _get = require('lodash/get')
+
+    let position = { x: 0, y: 0 }
+
+    // savedPosition is only available for popstate navigations (back button)
+    if (savedPosition) {
+        position = savedPosition
+    }
+
+    // recover scroll if returning to same route
+    const previous = _get(
+        window.$nuxt,
+        '$store.state.browser.referredFrom.fullPath'
+    )
+    if (to.fullPath === previous) {
+        position = {
+            x: 0,
+            y: _get(window.$nuxt, '$store.state.browser.referredFrom.sTop') || 0
+        }
+    }
+
+    // resolve
+    return new Promise(resolve => {
+        window.$nuxt.$once('triggerScroll', () => {
+            if (to.hash && document.querySelector(to.hash)) {
+                position = { selector: to.hash }
+            }
+
+            console.log('position: ', position)
+            resolve(position)
+        })
+    })
+}
+
 module.exports = {
     env: {
         prismicUrl: 'https://index-la.prismic.io/api/v2'
@@ -57,5 +92,8 @@ module.exports = {
         // { src: '~/plugins/ga', ssr: false },
         '~/plugins/bootstrap'
     ],
+    router: {
+        scrollBehavior
+    },
     serverMiddleware: ['~/api']
 }

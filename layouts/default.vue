@@ -17,12 +17,15 @@ export default {
         $route(to, from = {}) {
             // set referral
             const { fullPath, params, query, name } = from
-            this.$store.commit('SET_REFERRED', {
-                fullPath,
-                params,
-                query,
-                name
-            })
+            setTimeout(() => {
+                this.$store.commit('SET_REFERRED', {
+                    fullPath,
+                    params,
+                    query,
+                    name,
+                    sTop: this.$store.state.browser.sTop || 0
+                })
+            }, 100)
         }
     },
     mounted() {
