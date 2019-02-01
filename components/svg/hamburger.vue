@@ -1,42 +1,42 @@
 <template>
     <svg
-        class="svg-hamburger"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         width="24px"
-        height="18px"
+        height="20px"
         x="0px"
         y="0px"
-        viewBox="0 0 24 18"
+        viewBox="0 0 24 20"
         xml:space="preserve"
+        class="svg-hamburger"
     >
         <line
             fill="none"
-            :stroke="color"
+            stroke="#000"
             stroke-width="2"
             x1="0"
-            y1="1"
+            y1="2"
             x2="24"
-            y2="1"
-        />
+            y2="2"
+        ></line>
         <line
             fill="none"
-            :stroke="color"
+            stroke="#000"
             stroke-width="2"
             x1="0"
-            y1="9"
+            y1="10"
             x2="24"
-            y2="9"
-        />
+            y2="10"
+        ></line>
         <line
             fill="none"
-            :stroke="color"
+            stroke="#000"
             stroke-width="2"
             x1="0"
-            y1="17"
+            y1="18"
             x2="24"
-            y2="17"
-        />
+            y2="18"
+        ></line>
     </svg>
 </template>
 

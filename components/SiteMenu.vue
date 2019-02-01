@@ -93,7 +93,7 @@ export default {
 
     // logo (left half)
     .logo {
-        margin-left: $desktop-padding;
+        margin-left: 9%;
         font-size: 0;
     }
     .logo svg {
@@ -109,7 +109,7 @@ export default {
 
     // menus (right half)
     .menus {
-        margin-right: $desktop-padding;
+        margin-right: 9%;
         text-align: right;
     }
     .menu .nuxt-link-exact-active,

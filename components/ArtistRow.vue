@@ -1,36 +1,38 @@
 <template>
     <div class="artist-row wiv" v-in-view>
-        <div class="column image">
-            <no-ssr>
-                <div class="placeholder" slot="placeholder" />
-                <transition name="fade" appear>
-                    <a-div :href="artist | prismicLink">
-                        <responsive-image
-                            :object="image | prisToRezImg"
-                            :aspect="100"
-                            :fit="isMobile ? 'cover' : 'contain'"
-                        />
-                    </a-div>
-                </transition>
-            </no-ssr>
-        </div>
-        <div class="column name">
-            <h3 class="title">
-                <a-div :href="artist | prismicLink">{{ title }}</a-div>
-            </h3>
-            <ul class="types">
-                <li v-for="type in types">
-                    <nuxt-link :to="type.link">{{ type.name }}</nuxt-link>
+        <div class="contained">
+            <div class="column image">
+                <no-ssr>
+                    <div class="placeholder" slot="placeholder" />
+                    <transition name="fade" appear>
+                        <a-div :href="artist | prismicLink">
+                            <responsive-image
+                                :object="image | prisToRezImg"
+                                :aspect="100"
+                                :fit="isMobile ? 'cover' : 'contain'"
+                            />
+                        </a-div>
+                    </transition>
+                </no-ssr>
+            </div>
+            <div class="column name">
+                <h3 class="title">
+                    <a-div :href="artist | prismicLink">{{ title }}</a-div>
+                </h3>
+                <ul class="types">
+                    <li v-for="type in types">
+                        <nuxt-link :to="type.link">{{ type.name }}</nuxt-link>
+                    </li>
+                </ul>
+            </div>
+            <ul class="column categories">
+                <li v-for="category in categories">
+                    <a-div :href="category.link">{{ category.name }}</a-div>
                 </li>
             </ul>
-        </div>
-        <ul class="column categories">
-            <li v-for="category in categories">
-                <a-div :href="category.link">{{ category.name }}</a-div>
-            </li>
-        </ul>
-        <div class="column city">
-            <a-div v-if="city" :href="city.link">{{ city.name }}</a-div>
+            <div class="column city">
+                <a-div v-if="city" :href="city.link">{{ city.name }}</a-div>
+            </div>
         </div>
     </div>
 </template>
@@ -115,13 +117,17 @@ export default {
 @import '../assets/scss/vars';
 
 .artist-row {
-    grid-template-columns: 24% repeat(3, 1fr);
-    grid-gap: 60px;
     border-top: 1px solid $mid-gray;
-    display: grid;
     padding: 60px $desktop-padding;
     color: $dark-gray;
 
+    .contained {
+        grid-template-columns: 24% repeat(3, 1fr);
+        grid-gap: 60px;
+        display: grid;
+        max-width: 1600px;
+        margin: auto;
+    }
     .placeholder {
         padding-bottom: 100%;
         height: 0;
@@ -165,8 +171,11 @@ export default {
         padding-right: 0;
         padding-left: 0;
         border-top: none;
-        display: block;
         width: 50%;
+
+        .contained {
+            display: block;
+        }
 
         .categories,
         .city {
@@ -196,15 +205,27 @@ export default {
 // mobile breakpoints
 @media #{ $lt-phone } {
     .artist-row {
-        grid-template-columns: 40% 1fr;
         padding-right: $mobile-padding;
         padding-left: $mobile-padding;
         padding-bottom: 30px;
         padding-top: 30px;
 
+        .contained {
+            grid-template-columns: 40% 1fr;
+        }
+
         .categories,
         .city {
             display: none;
+        }
+    }
+}
+
+@media #{ $gt-cinema } {
+    .artist-row {
+        .is-grid-view &,
+        .related-grid & {
+            width: 33.33%;
         }
     }
 }

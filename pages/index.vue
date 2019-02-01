@@ -84,7 +84,6 @@ export default {
             clearTimeout(this.timer)
             await this.$nextTick()
             if (this.atBottom && !this.loadingData && !this.reachedEnd) {
-                console.log('loading next page...')
                 this.loadingData = true
 
                 // set next page and run query
@@ -107,7 +106,6 @@ export default {
                     // increment page
                     this.page = this.page + 1
                 } else {
-                    console.log('reached the end')
                     this.reachedEnd = true
                 }
 
