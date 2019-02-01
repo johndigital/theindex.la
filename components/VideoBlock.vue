@@ -75,7 +75,6 @@ export default {
 
 .video-block {
     position: relative;
-    margin-top: 240px;
 
     .fill {
         @include fill;

@@ -156,6 +156,9 @@ export default {
     a {
         color: inherit;
     }
+    .video-block {
+        margin-top: 240px;
+    }
     .feature-cover {
         position: relative;
         height: 100vh;

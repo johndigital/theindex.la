@@ -1,6 +1,7 @@
 <template>
     <div class="artist-gallery-item wiv" v-in-view>
-        <no-ssr>
+        <video-block v-if="hasVideo" :embed="video" />
+        <no-ssr v-else>
             <div
                 class="placeholder"
                 slot="placeholder"
@@ -49,6 +50,12 @@ export default {
             const height = _get(this.imageObject, 'sizes.fullscreen.height')
             const width = _get(this.imageObject, 'sizes.fullscreen.width')
             return height && width ? (height / width) * 100 : 56.25
+        },
+        video() {
+            return _get(this.item, 'video')
+        },
+        hasVideo() {
+            return this.video && this.video.html
         }
     }
 }
@@ -58,5 +65,8 @@ export default {
 @import '../assets/scss/vars';
 
 .artist-gallery-item {
+    .video-block {
+        margin-top: 120px;
+    }
 }
 </style>
