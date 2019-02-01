@@ -1,4 +1,4 @@
-const GA_CODE = 'UA_CODE_HERE'
+const GA_CODE = 'UA-80898881-1'
 
 export default ({ app }) => {
     if (process.env.NODE_ENV !== 'production') return

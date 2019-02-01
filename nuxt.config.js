@@ -89,7 +89,7 @@ module.exports = {
     css: ['@/assets/scss/_base.scss'],
     plugins: [
         { src: '~/plugins/browser', ssr: false },
-        // { src: '~/plugins/ga', ssr: false },
+        { src: '~/plugins/ga', ssr: false },
         '~/plugins/bootstrap'
     ],
     router: {
