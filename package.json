@@ -41,7 +41,8 @@
         "popmotion": "^8.5.3",
         "prismic-dom": "^2.1.0",
         "prismic-javascript": "^2.0.1",
-        "string.prototype.includes": "^1.0.0"
+        "string.prototype.includes": "^1.0.0",
+        "url-parse": "^1.4.4"
     },
     "devDependencies": {
         "babel-polyfill": "^6.26.0",

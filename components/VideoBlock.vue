@@ -1,15 +1,10 @@
 <template>
     <div class="video-block" :style="styles">
+        <div class="fill" key="vid" v-html="iframe" />
         <transition name="fade">
             <div
-                v-if="iframe && activated"
-                class="fill"
-                key="vid"
-                v-html="iframe"
-            />
-            <div
-                v-else
-                @click="activated = true"
+                v-if="!activated"
+                @click="onClick"
                 key="placeholder"
                 :style="placeholderStyles"
                 class="video-placeholder"
@@ -28,6 +23,7 @@
 
 <script>
 import _get from 'lodash/get'
+import parse from 'url-parse'
 
 export default {
     props: {
@@ -65,6 +61,37 @@ export default {
         },
         iframe() {
             return _get(this.embed, 'html', '')
+        },
+        isYoutube() {
+            return !!this.iframe.match(/youtube\.com/)
+        },
+        isVimeo() {
+            return !!this.iframe.match(/vimeo\.com/)
+        }
+    },
+    methods: {
+        onClick() {
+            this.activated = true
+            if (this.$el && this.$el.querySelector) {
+                const iframe = this.$el.querySelector('iframe')
+                if (iframe) {
+                    if (this.isYoutube) this.playYoutube(iframe)
+                    else if (this.isVimeo) this.playVimeo(iframe)
+                }
+            }
+        },
+        playVimeo(iframe) {
+            const winnow = iframe.contentWindow
+            winnow.postMessage('{"method":"play"}', '*')
+        },
+        playYoutube(iframe) {
+            const src = iframe.src
+            const parsed = parse(src, true)
+            parsed.set('query', {
+                ...parsed.query,
+                autoplay: 1
+            })
+            iframe.src = parsed.toString()
         }
     }
 }
