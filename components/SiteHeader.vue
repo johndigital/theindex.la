@@ -131,6 +131,12 @@ export default {
 <style lang="scss">
 @import '../assets/scss/vars';
 
+.route-stories-slug .svg-hamburger line,
+.route-stories-slug .site-header .go-back line,
+.route-stories-slug .site-header .go-back polyline {
+    stroke: var(--article-text-color);
+}
+
 .site-header {
     transition: left 400ms $easeInOutQuad, transform 350ms $easeInOutQuad,
         background-color 200ms;

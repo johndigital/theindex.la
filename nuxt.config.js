@@ -31,8 +31,6 @@ const scrollBehavior = (to, from, savedPosition) => {
             if (to.hash && document.querySelector(to.hash)) {
                 position = { selector: to.hash }
             }
-
-            console.log('position: ', position)
             resolve(position)
         })
     })

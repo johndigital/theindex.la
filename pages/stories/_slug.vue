@@ -39,7 +39,6 @@ export default {
             type: 'feature',
             slug: params.slug
         })
-
         if (story) {
             // add to vuex
             store.commit('SET_PAGE_DATA', {
@@ -64,11 +63,13 @@ export default {
         }
     },
     watch: {
-        linkColor: 'setLinkColor'
+        linkColor: 'setLinkColor',
+        textColor: 'setTextColor'
     },
     async mounted() {
         await this.$nextTick()
         this.setLinkColor()
+        this.setTextColor()
     },
     computed: {
         styles() {
@@ -129,6 +130,11 @@ export default {
             await this.$nextTick()
             const root = document.documentElement
             root.style.setProperty('--article-link-color', this.linkColor)
+        },
+        async setTextColor() {
+            await this.$nextTick()
+            const root = document.documentElement
+            root.style.setProperty('--article-text-color', this.textColor)
         },
         getSliceName(type) {
             if (type == 'diptych') return 'body-section-diptych'
