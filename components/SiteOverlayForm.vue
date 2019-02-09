@@ -30,6 +30,10 @@ export default {
         closeOverlay() {
             this.$store.commit('CLOSE_SUBSCRIBE')
             this.$store.commit('CLOSE_SUBMIT')
+            this.$router.push({
+                ...this.$route,
+                hash: ''
+            })
         }
     }
 }
