@@ -111,17 +111,18 @@ section.loading-screen {
     }
     a strong,
     strong a {
+        text-decoration: none;
         position: relative;
 
-        // &::after {
-        //     background-color: $black;
-        //     content: '';
-        //     position: absolute;
-        //     bottom: 3px;
-        //     height: 1px;
-        //     right: 0;
-        //     left: 0;
-        // }
+        &::after {
+            background-color: $black;
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            height: 1px;
+            right: 0;
+            left: 0;
+        }
     }
 }
 

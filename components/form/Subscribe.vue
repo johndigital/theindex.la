@@ -17,7 +17,7 @@
             <input
                 class="email"
                 type="email"
-                placeholder="enter email for newsletter"
+                placeholder="enter email for updates"
                 v-model="value"
                 required
             />

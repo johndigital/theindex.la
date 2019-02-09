@@ -82,6 +82,9 @@ export default {
                 color: $black;
             }
         }
+        strong {
+            font-weight: 400;
+        }
     }
     .entry,
     .footer {
