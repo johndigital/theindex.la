@@ -5,6 +5,7 @@ body {
     background-color: $white;
     font-size: 18px;
     margin: 0;
+    -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased !important;
     text-rendering: optimizeLegibility !important;
 }

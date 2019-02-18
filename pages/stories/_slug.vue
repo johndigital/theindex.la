@@ -205,6 +205,9 @@ export default {
         .next-story {
             margin-top: 120px;
         }
+        .video-block {
+            margin-top: 60px;
+        }
     }
 }
 </style>

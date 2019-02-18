@@ -1,5 +1,10 @@
 <template>
     <main class="artist-detail">
+        <artist-gallery-item
+            class="first-gallery-item"
+            :item="firstGalleryItem"
+            v-if="firstGalleryItem"
+        />
         <div class="artist-info">
             <div class="column name">
                 <h3 class="title">{{ title }}</h3>
@@ -189,6 +194,9 @@ export default {
         galleryItems() {
             return _get(this.pageData, 'data.gallery', [])
         },
+        firstGalleryItem() {
+            return _get(this.galleryItems, '[0]')
+        },
         similarItems() {
             const slug = this.$route.params.slug
             return _get(this.$store.state, `pageData[artist/${slug}/similar]`)
@@ -198,7 +206,9 @@ export default {
                 this.galleryItems,
                 '[0].item_image.large.url'
             )
-            return _get(this.pageData, 'data.image.large.url') || firstImage
+            return (
+                _get(this.pageData, 'data.featureImage.large.url') || firstImage
+            )
         },
         ogDescription() {
             const excerpt = _get(this.pageData, 'data.excerpt')
@@ -213,6 +223,10 @@ export default {
 
 .artist-detail {
     padding-top: $header-height;
+
+    .first-gallery-item {
+        display: none;
+    }
 
     .artist-info {
         position: fixed;
@@ -283,6 +297,11 @@ export default {
     .artist-detail {
         font-size: 16px;
 
+        .first-gallery-item {
+            display: block;
+            padding: 0 25px;
+        }
+
         .artist-info {
             margin-bottom: 60px;
             position: static;
@@ -293,6 +312,9 @@ export default {
         .artist-description {
             width: initial;
             padding: 0 25px;
+        }
+        .artist-gallery > *:first-child {
+            display: none;
         }
         .gallery-item {
             padding-bottom: 0;
