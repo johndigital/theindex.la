@@ -64,6 +64,7 @@ export default {
     }
     input {
         border-bottom: 1px solid $white;
+        box-sizing: border-box;
         padding-bottom: 10px;
         text-align: center;
         font-size: 28px;
