@@ -9,7 +9,7 @@
                             <responsive-image
                                 :object="image | prisToRezImg"
                                 :aspect="100"
-                                :fit="isMobile ? 'cover' : 'contain'"
+                                fit="contain"
                             />
                         </a-div>
                     </transition>
