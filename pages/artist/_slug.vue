@@ -104,7 +104,7 @@ export default {
             })
             meta.push({
                 hid: 'og:description',
-                name: 'og:description',
+                property: 'og:description',
                 content: this.ogDescription
             })
         }
@@ -112,14 +112,14 @@ export default {
         if (this.ogImage) {
             meta.push({
                 hid: 'og:image',
-                name: 'og:image',
+                property: 'og:image',
                 content: this.ogImage
             })
         }
 
         meta.push({
             hid: 'og:title',
-            name: 'og:title',
+            property: 'og:title',
             content: `Index - ${this.title}`
         })
 

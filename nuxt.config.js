@@ -49,17 +49,17 @@ module.exports = {
                 content:
                     'width=device-width, initial-scale=1, viewport-fit=cover'
             },
-            { name: 'og:url', content: 'https://theindex.la' },
-            { name: 'og:type', content: 'website' },
-            { hid: 'og:title', name: 'og:title', content: 'Index' },
+            { property: 'og:url', content: 'https://theindex.la' },
+            { property: 'og:type', content: 'website' },
+            { hid: 'og:title', property: 'og:title', content: 'Index' },
             {
                 hid: 'og:image',
-                name: 'og:image',
+                property: 'og:image',
                 content: '/images/screenshot.png'
             },
             {
                 hid: 'og:description',
-                name: 'og:description',
+                property: 'og:description',
                 content:
                     'Index is a library of contemporary photographers and filmmakers—a digital tool for finding talent from around the world.'
             }
