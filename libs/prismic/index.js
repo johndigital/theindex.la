@@ -48,7 +48,7 @@ const getDimensionIDs = (query, store, dimension) => {
 export const fetchByQs = async ({ query, store, pageSize, page }) => {
     try {
         const api = await getApi()
-        pageSize = pageSize || 20
+        pageSize = pageSize || 50
         page = page || 1
 
         // initial predicates

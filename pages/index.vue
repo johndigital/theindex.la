@@ -30,7 +30,7 @@ export default {
         const artists = await fetchByQs({
             query,
             store,
-            pageSize: 20,
+            pageSize: 50,
             page: 1
         })
 
@@ -91,7 +91,7 @@ export default {
                 const artists = await fetchByQs({
                     query: this.$route.query,
                     store: this.$store,
-                    pageSize: 20,
+                    pageSize: 50,
                     page: nextPage
                 })
 
