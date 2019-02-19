@@ -51,7 +51,7 @@ module.exports = {
             },
             { name: 'og:url', content: 'https://theindex.la' },
             { name: 'og:type', content: 'website' },
-            { name: 'og:title', content: 'Index' },
+            { hid: 'og:title', name: 'og:title', content: 'Index' },
             {
                 hid: 'og:image',
                 name: 'og:image',

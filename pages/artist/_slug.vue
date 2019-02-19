@@ -117,6 +117,12 @@ export default {
             })
         }
 
+        meta.push({
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Index - ${this.title}`
+        })
+
         return {
             title: `Index - ${this.title}`,
             meta
