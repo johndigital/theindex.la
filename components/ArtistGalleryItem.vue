@@ -1,6 +1,6 @@
 <template>
     <div class="artist-gallery-item wiv" v-in-view>
-        <video-block v-if="hasVideo" :embed="video" />
+        <video-block v-if="hasVideo" :embed="video" :placeholder="imageSrc" />
         <no-ssr v-else>
             <div
                 class="placeholder"
@@ -45,6 +45,9 @@ export default {
                 }
             }
             return null
+        },
+        imageSrc() {
+            return _get(this.imageObject, 'sizes.fullscreen.url')
         },
         ratio() {
             const height = _get(this.imageObject, 'sizes.fullscreen.height')
