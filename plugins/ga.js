@@ -23,7 +23,7 @@ export default ({ app }) => {
     )
 
     // Set the current page
-    ga('create', GA_CODE, 'auto')
+    ga('create', GA_CODE, 'auto', 'client')
     ga('create', 'UA-89063952-7', 'auto')
 
     // hook route changes
