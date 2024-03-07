@@ -1,6 +1,12 @@
 import _sampleSize from 'lodash/sampleSize'
 import Prismic from 'prismic-javascript'
+import LRUCache from 'lru-cache'
 import _get from 'lodash/get'
+
+const cache = new LRUCache({
+    max: 100,
+    ttl: 1000 * 60 * 5
+})
 
 // helper to init API
 const CACHE_TIME = 3 * 60 * 1000
@@ -90,11 +96,18 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
         }
 
         // run query
-        let { results } = await api.query(predicates, {
+        const qOps = {
             pageSize: pageSize,
             page: page,
             orderings: getOrdering(query)
-        })
+        }
+        const key = JSON.stringify({ predicates, qOps })
+        let qResults = cache.get(key)
+        if (!qResults) {
+            qResults = await api.query(predicates, qOps)
+            cache.set(key, qResults)
+        }
+        let { results } = qResults
 
         // no results, try tags instead of search
         if (!results.length && query.q) {
@@ -236,11 +249,19 @@ export const fetchByType = async ops => {
         }
 
         // run query
-        const { results } = await api.query(predicates, {
+        const qOps = {
             pageSize: settings.pageSize,
             page: settings.page,
             orderings: settings.orderings
-        })
+        }
+        const key = JSON.stringify({ predicates, qOps })
+        let qResults = cache.get(key)
+        if (!qResults) {
+            qResults = await api.query(predicates, qOps)
+            cache.set(key, qResults)
+        }
+        let { results } = qResults
+
         return results
     } catch (err) {
         return []
