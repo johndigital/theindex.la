@@ -44,7 +44,7 @@ export default async ({ store, route, req, error }) => {
         if (blacklist.includes(ip)) {
             console.log('Denied blacklist IP: ', ip)
             return error({
-                statusCode: 500,
+                statusCode: 400,
                 message: 'Something went wrong.'
             })
         }
