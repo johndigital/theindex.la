@@ -31,10 +31,23 @@ filters.keys().map(filter => {
     Vue.filter(filterName, filters(filter).default)
 })
 
-export default async ({ store, route, req }) => {
+const blacklist = [
+    '3.224.220.101',
+    '52.70.240.171',
+    '23.22.35.162'
+    // '127.0.0.1'
+]
+
+export default async ({ store, route, req, error }) => {
     if (process.server) {
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-        console.log('ip: ', ip)
+        if (blacklist.includes(ip)) {
+            console.log('Denied blacklist IP: ', ip)
+            return error({
+                statusCode: 500,
+                message: 'Something went wrong.'
+            })
+        }
     }
 
     // preload global data
