@@ -104,6 +104,7 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
         const key = JSON.stringify({ predicates, qOps })
         let qResults = cache.get(key)
         if (!qResults) {
+            // console.log('Hitting Pris API, fetch by QS')
             qResults = await api.query(predicates, qOps)
             cache.set(key, qResults)
         }
@@ -124,6 +125,7 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
             )
 
             // run again
+            // console.log('Hitting Pris API, tag search')
             const retry = await api.query(predicates, {
                 pageSize: pageSize,
                 page: page,
@@ -163,6 +165,7 @@ export const fetchNextDocument = async ops => {
                 Prismic.Predicates.at('document.type', settings.type),
                 Prismic.Predicates.dateBefore('my.feature.timestamp', stamp)
             ]
+            // console.log('Hitting Pris API, fetch next doc')
             const { results } = await api.query(predicates, {
                 pageSize: 1,
                 orderings: '[my.feature.timestamp desc]'
@@ -206,6 +209,7 @@ export const fetchRelated = async doc => {
             ]
 
             // run query
+            // console.log('Hitting Pris API, fetch related')
             const { results } = await api.query(predicates, {
                 pageSize: 6,
                 orderings: '[my.feature.timestamp desc]'
@@ -244,6 +248,7 @@ export const fetchByType = async ops => {
 
         // if slug was specified
         if (settings.slug) {
+            // console.log('Hitting Pris API, fetch by type with slug')
             const artist = await api.getByUID(settings.type, settings.slug)
             return artist
         }
@@ -257,6 +262,7 @@ export const fetchByType = async ops => {
         const key = JSON.stringify({ predicates, qOps })
         let qResults = cache.get(key)
         if (!qResults) {
+            // console.log('Hitting Pris API, fetch by type no slug')
             qResults = await api.query(predicates, qOps)
             cache.set(key, qResults)
         }

@@ -1,6 +1,7 @@
 import { fetchByType } from '~/libs/prismic'
 import _kebabCase from 'lodash/kebabCase'
 import _camelCase from 'lodash/camelCase'
+import _get from 'lodash/get'
 import Vue from 'vue'
 
 // external components
@@ -31,6 +32,18 @@ filters.keys().map(filter => {
     Vue.filter(filterName, filters(filter).default)
 })
 
+// Helper to preload pris data
+const preloadTypeIfNeeded = async (store, type, key, pageSize) => {
+    if (!type) throw new Error('Preload called with no type.')
+    if (!key) throw new Error('Preload called with no key.')
+    if (!_get(store, `state.pageData[${key}]`)) {
+        let data = await fetchByType({ type, pageSize })
+        if (pageSize == 1) data = data[0] || null
+        store.commit('SET_PAGE_DATA', { key, data })
+    }
+}
+
+// IP blacklist
 const blacklist = [
     '3.224.220.101',
     '52.70.240.171',
@@ -62,39 +75,13 @@ export default async ({ store, route, req, error }) => {
     }
 
     // preload global data
-    const [
-        allTypes,
-        allCats,
-        allCities,
-        allRegions,
-        metaDocs
-    ] = await Promise.all([
-        fetchByType({ type: 'type', pageSize: 100 }),
-        fetchByType({ type: 'category', pageSize: 100 }),
-        fetchByType({ type: 'city', pageSize: 100 }),
-        fetchByType({ type: 'region', pageSize: 100 }),
-        fetchByType({ type: 'meta', pageSize: 1 })
+    await Promise.all([
+        preloadTypeIfNeeded(store, 'type', 'all-type', 100),
+        preloadTypeIfNeeded(store, 'category', 'all-category', 100),
+        preloadTypeIfNeeded(store, 'city', 'all-city', 100),
+        preloadTypeIfNeeded(store, 'region', 'all-region', 100),
+        preloadTypeIfNeeded(store, 'meta', 'meta', 1)
     ])
-    store.commit('SET_PAGE_DATA', {
-        key: 'all-type',
-        data: allTypes
-    })
-    store.commit('SET_PAGE_DATA', {
-        key: 'all-category',
-        data: allCats
-    })
-    store.commit('SET_PAGE_DATA', {
-        key: 'all-region',
-        data: allRegions
-    })
-    store.commit('SET_PAGE_DATA', {
-        key: 'all-city',
-        data: allCities
-    })
-    store.commit('SET_PAGE_DATA', {
-        key: 'meta',
-        data: metaDocs.length ? metaDocs[0] : null
-    })
 
     // not on about page, show loading
     if (route.path !== '/about') {
