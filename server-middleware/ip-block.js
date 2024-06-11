@@ -1,3 +1,5 @@
+const { RateLimiterMemory } = require('rate-limiter-flexible')
+
 // IP blacklist
 const blacklist = [
     '3.224.220.101',
@@ -17,11 +19,10 @@ const blacklist = [
     // '127.0.0.1'
 ]
 
-// const ipTable = {}
-// const maybeDelay = async (ip) => {
-//     ipTable[ip] = (ipTable[ip] || 0) + 1
-//     const
-// }
+const rateLimiter = new RateLimiterMemory({
+    points: 5,
+    duration: 5
+})
 
 export default function(req, res, next) {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
@@ -31,6 +32,13 @@ export default function(req, res, next) {
         return res.end('')
     }
 
-    // console.log(req.url)
-    next()
+    // IP rate limit
+    rateLimiter
+        .consume(ip)
+        .then(() => next())
+        .catch(() => {
+            console.log(`Rate Limit hit for IP: ${ip}`)
+            res.writeHead(200, { 'Content-Type': 'text/html' })
+            return res.end('')
+        })
 }

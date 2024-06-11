@@ -45,6 +45,7 @@
         "popmotion": "^8.5.3",
         "prismic-dom": "^2.1.0",
         "prismic-javascript": "^2.0.1",
+        "rate-limiter-flexible": "^5.0.3",
         "string.prototype.includes": "^1.0.0",
         "url-parse": "^1.4.4"
     },
