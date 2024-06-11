@@ -20,19 +20,20 @@ const blacklist = [
 ]
 
 const rateLimiter = new RateLimiterMemory({
-    points: 3,
-    duration: 30
+    points: 6,
+    duration: 60
 })
 
-let bpcounter = 0
+let blCounter = 0,
+    dlCounter = 0
 export default function(req, res, next) {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
     if (blacklist.includes(ip)) {
         // log every 10
-        bpcounter++
-        if (bpcounter >= 10) {
+        blCounter++
+        if (blCounter >= 10) {
             console.log('10 blacklist denials')
-            bpcounter = 0
+            blCounter = 0
         }
 
         // reject
@@ -45,15 +46,19 @@ export default function(req, res, next) {
         .consume(ip)
         .then(() => next())
         .catch(({ consumedPoints }) => {
-            console.log(`Rate Limit hit for IP: ${ip}`)
+            // console.log(`Rate Limit hit for IP: ${ip}`)
 
             // exp backoff, and then reject
-            const delay = Math.floor(Math.exp(consumedPoints * 0.75))
+            const delay = Math.floor(Math.exp(consumedPoints * 0.5))
             if (delay < 15 * 1000) {
-                console.log('delay: ', delay)
+                dlCounter++
+                if (dlCounter >= 10) {
+                    console.log('10 rate limit delays')
+                    dlCounter = 0
+                }
                 setTimeout(() => next(), delay)
             } else {
-                console.log('rejection')
+                console.log('Rate limit rejection: ', ip)
                 res.writeHead(200, { 'Content-Type': 'text/html' })
                 return res.end('')
             }
