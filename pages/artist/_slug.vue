@@ -85,13 +85,6 @@ export default {
                 key: `artist/${params.slug}`,
                 data: artist
             })
-
-            // get similar
-            const similar = await fetchRelated(artist)
-            store.commit('SET_PAGE_DATA', {
-                key: `artist/${params.slug}/similar`,
-                data: similar
-            })
         }
     },
     head() {
@@ -126,6 +119,16 @@ export default {
         return {
             title: `Index - ${this.title}`,
             meta
+        }
+    },
+    async mounted() {
+        // get related on client side
+        if (this.pageData) {
+            const similar = await fetchRelated(this.pageData)
+            this.$store.commit('SET_PAGE_DATA', {
+                key: `artist/${this.$route.params.slug}/similar`,
+                data: similar
+            })
         }
     },
     computed: {

@@ -3,9 +3,14 @@ import Prismic from 'prismic-javascript'
 import LRUCache from 'lru-cache'
 import _get from 'lodash/get'
 
+// local log helper
+const log = function() {
+    console.log(...arguments)
+}
+
 const cache = new LRUCache({
     max: 100,
-    ttl: 1000 * 60 * 5
+    ttl: 1000 * 60 * 10
 })
 
 // helper to init API
@@ -104,7 +109,7 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
         const key = JSON.stringify({ predicates, qOps })
         let qResults = cache.get(key)
         if (!qResults) {
-            // console.log('Hitting Pris API, fetch by QS')
+            log('Hitting Pris API, fetch by QS')
             qResults = await api.query(predicates, qOps)
             cache.set(key, qResults)
         }
@@ -125,7 +130,7 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
             )
 
             // run again
-            // console.log('Hitting Pris API, tag search')
+            log('Hitting Pris API, tag search')
             const retry = await api.query(predicates, {
                 pageSize: pageSize,
                 page: page,
@@ -136,6 +141,7 @@ export const fetchByQs = async ({ query, store, pageSize, page }) => {
 
         return results
     } catch (err) {
+        log('Error in fetchByQs', err)
         return []
     }
 }
@@ -156,16 +162,22 @@ export const fetchNextDocument = async ops => {
 
         // make sure we have a document
         if (settings.doc) {
+            const key = `next-${JSON.stringify(ops)}`
+            if (cache.has(key)) return cache.get(key)
+
             const stamp =
                 settings.doc.data.timestamp ||
                 settings.doc.first_publication_date
 
-            if (!stamp) return null
+            if (!stamp) {
+                cache.set(key, null)
+                return null
+            }
             const predicates = [
                 Prismic.Predicates.at('document.type', settings.type),
                 Prismic.Predicates.dateBefore('my.feature.timestamp', stamp)
             ]
-            // console.log('Hitting Pris API, fetch next doc')
+            log('Hitting Pris API, fetch next doc')
             const { results } = await api.query(predicates, {
                 pageSize: 1,
                 orderings: '[my.feature.timestamp desc]'
@@ -173,6 +185,7 @@ export const fetchNextDocument = async ops => {
 
             // success? return
             if (results && results.length) {
+                cache.set(key, results[0])
                 return results[0]
             }
         }
@@ -191,29 +204,37 @@ export const fetchRelated = async doc => {
 
         // make sure we have a document
         if (doc) {
-            // map IDs into array
-            let catIDs = doc.data.categories
-                .map(cat => {
-                    return _get(cat, 'category.id')
-                })
-                .filter(Boolean)
+            const key = `related-${doc.id}`
+            let results = cache.get(key)
 
-            // build query
-            let predicates = [
-                Prismic.Predicates.at('document.type', doc.type),
-                Prismic.Predicates.not('document.id', doc.id),
-                Prismic.Predicates.any(
-                    `my.${doc.type}.categories.category`,
-                    catIDs
-                )
-            ]
+            if (!results) {
+                // map IDs into array
+                let catIDs = doc.data.categories
+                    .map(cat => {
+                        return _get(cat, 'category.id')
+                    })
+                    .filter(Boolean)
 
-            // run query
-            // console.log('Hitting Pris API, fetch related')
-            const { results } = await api.query(predicates, {
-                pageSize: 6,
-                orderings: '[my.feature.timestamp desc]'
-            })
+                // build query
+                let predicates = [
+                    Prismic.Predicates.at('document.type', doc.type),
+                    Prismic.Predicates.not('document.id', doc.id),
+                    Prismic.Predicates.any(
+                        `my.${doc.type}.categories.category`,
+                        catIDs
+                    )
+                ]
+
+                // run query
+                log('Hitting Pris API, fetch related')
+                results = await api
+                    .query(predicates, {
+                        pageSize: 6,
+                        orderings: '[my.feature.timestamp desc]'
+                    })
+                    .then(r => r.results)
+                cache.set(key, results)
+            }
 
             // return results filtered by
             return results
@@ -248,8 +269,13 @@ export const fetchByType = async ops => {
 
         // if slug was specified
         if (settings.slug) {
-            // console.log('Hitting Pris API, fetch by type with slug')
-            const artist = await api.getByUID(settings.type, settings.slug)
+            const key = `uid-${settings.type}-${settings.slug}`
+            let artist = cache.get(key)
+            if (!artist) {
+                log('Hitting Pris API, fetch by type with slug')
+                artist = await api.getByUID(settings.type, settings.slug)
+                cache.set(key, artist)
+            }
             return artist
         }
 
@@ -262,7 +288,7 @@ export const fetchByType = async ops => {
         const key = JSON.stringify({ predicates, qOps })
         let qResults = cache.get(key)
         if (!qResults) {
-            // console.log('Hitting Pris API, fetch by type no slug')
+            log('Hitting Pris API, fetch by type no slug')
             qResults = await api.query(predicates, qOps)
             cache.set(key, qResults)
         }

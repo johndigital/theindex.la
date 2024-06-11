@@ -22,22 +22,35 @@
 
 <script>
 import { fetchByQs } from '~/libs/prismic'
+import _isEmpty from 'lodash/isEmpty'
 import _get from 'lodash/get'
+
+const loadFirstPage = async (query, store) => {
+    const artists = await fetchByQs({
+        query,
+        store,
+        pageSize: 50,
+        page: 1
+    })
+
+    return store.commit('SET_PAGE_DATA', {
+        key: `artists/page/1`,
+        data: artists
+    })
+}
 
 export default {
     watchQuery: true,
-    async fetch({ store, params, query }) {
-        const artists = await fetchByQs({
-            query,
-            store,
-            pageSize: 50,
-            page: 1
-        })
+    async fetch({ store, query }) {
+        // Skip server fetch unless query is empty
+        if (!_isEmpty(query) && process.server) {
+            return store.commit('SET_PAGE_DATA', {
+                key: `artists/page/1`,
+                data: []
+            })
+        }
 
-        return store.commit('SET_PAGE_DATA', {
-            key: `artists/page/1`,
-            data: artists
-        })
+        return loadFirstPage(query, store)
     },
     watch: {
         '$route.query'() {
@@ -52,6 +65,12 @@ export default {
             reachedEnd: false,
             timer: null,
             page: 1
+        }
+    },
+    mounted() {
+        // load first page if the server did not
+        if (!_isEmpty(this.$route.query)) {
+            return loadFirstPage(this.$route.query, this.$store)
         }
     },
     computed: {
