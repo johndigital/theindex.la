@@ -9,7 +9,7 @@ const log = function() {
 }
 
 const cache = new LRUCache({
-    max: 100,
+    max: 300,
     ttl: 1000 * 60 * 10
 })
 
