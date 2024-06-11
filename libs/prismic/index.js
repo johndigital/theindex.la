@@ -11,7 +11,7 @@ const log = function() {
 const CACHE_TIME = 10 * 60 * 1000
 
 const cache = new LRUCache({
-    max: 300,
+    max: 500,
     ttl: CACHE_TIME
 })
 
