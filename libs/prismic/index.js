@@ -5,13 +5,15 @@ import _get from 'lodash/get'
 
 // local log helper
 const log = function() {
-    console.log(...arguments)
+    if (process.server) {
+        console.log(...arguments)
+    }
 }
 
 const CACHE_TIME = 10 * 60 * 1000
 
 const cache = new LRUCache({
-    max: 500,
+    max: 750,
     ttl: CACHE_TIME
 })
 
@@ -274,14 +276,13 @@ export const fetchByType = async ops => {
             if (/\.|\{/.test(settings.slug)) return false
 
             const key = `uid-${settings.type}-${settings.slug}`
-            let artist = cache.get(key)
-            if (!artist) {
+            if (!cache.has(key)) {
                 log(`Hitting Pris, type-slug ${settings.type}-${settings.slug}`)
                 log('cache size: ', cache.itemCount)
-                artist = await api.getByUID(settings.type, settings.slug)
-                cache.set(key, artist)
+                const doc = await api.getByUID(settings.type, settings.slug)
+                cache.set(key, doc)
             }
-            return artist
+            return cache.get(key)
         }
 
         // run query
