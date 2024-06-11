@@ -20,8 +20,8 @@ const blacklist = [
 ]
 
 const rateLimiter = new RateLimiterMemory({
-    points: 5,
-    duration: 5
+    points: 4,
+    duration: 10
 })
 
 export default function(req, res, next) {
@@ -36,9 +36,13 @@ export default function(req, res, next) {
     rateLimiter
         .consume(ip)
         .then(() => next())
-        .catch(() => {
+        .catch(({ msBeforeNext }) => {
             console.log(`Rate Limit hit for IP: ${ip}`)
-            res.writeHead(200, { 'Content-Type': 'text/html' })
-            return res.end('')
+            if (msBeforeNext < 4000) {
+                setTimeout(() => next(), msBeforeNext)
+            } else {
+                res.writeHead(200, { 'Content-Type': 'text/html' })
+                return res.end('')
+            }
         })
 }
