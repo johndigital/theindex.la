@@ -45,21 +45,6 @@ export default {
                 key: `features/${params.slug}`,
                 data: story
             })
-
-            // attempt to fetch next in order
-            const nextStory = await fetchNextDocument({
-                type: 'feature',
-                doc: story
-            })
-
-            // if success getting next story,
-            // add to vuex
-            if (nextStory) {
-                store.commit('SET_PAGE_DATA', {
-                    key: `features/${params.slug}/next`,
-                    data: nextStory
-                })
-            }
         }
     },
     watch: {
@@ -70,6 +55,22 @@ export default {
         await this.$nextTick()
         this.setLinkColor()
         this.setTextColor()
+
+        // attempt to fetch next in order
+        const story = this.pageData
+        const nextStory = await fetchNextDocument({
+            type: 'feature',
+            doc: story
+        })
+
+        // if success getting next story,
+        // add to vuex
+        if (nextStory) {
+            this.$store.commit('SET_PAGE_DATA', {
+                key: `features/${this.$route.params.slug}/next`,
+                data: nextStory
+            })
+        }
     },
     computed: {
         styles() {
