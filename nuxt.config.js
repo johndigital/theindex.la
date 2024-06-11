@@ -93,5 +93,5 @@ module.exports = {
     router: {
         scrollBehavior
     },
-    serverMiddleware: ['~/api']
+    serverMiddleware: ['~/api', '~/server-middleware/ip-block']
 }

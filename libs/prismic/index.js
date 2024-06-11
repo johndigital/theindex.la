@@ -272,7 +272,8 @@ export const fetchByType = async ops => {
             const key = `uid-${settings.type}-${settings.slug}`
             let artist = cache.get(key)
             if (!artist) {
-                log('Hitting Pris API, fetch by type with slug')
+                log(`Hitting Pris, type-slug ${settings.type}-${settings.slug}`)
+                log('cache size: ', cache.itemCount)
                 artist = await api.getByUID(settings.type, settings.slug)
                 cache.set(key, artist)
             }
