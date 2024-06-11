@@ -74,18 +74,20 @@ import { fetchByType, fetchRelated } from '~/libs/prismic'
 import _get from 'lodash/get'
 
 export default {
-    async fetch({ store, params, query }) {
+    async fetch({ store, params, error }) {
         const artist = await fetchByType({
             type: 'artist',
             slug: params.slug
         })
 
-        if (artist) {
-            store.commit('SET_PAGE_DATA', {
-                key: `artist/${params.slug}`,
-                data: artist
-            })
-        }
+        // 404
+        if (!artist)
+            return error({ statusCode: 404, message: 'Page not found' })
+
+        store.commit('SET_PAGE_DATA', {
+            key: `artist/${params.slug}`,
+            data: artist
+        })
     },
     head() {
         const meta = []

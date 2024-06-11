@@ -8,13 +8,14 @@ const log = function() {
     console.log(...arguments)
 }
 
+const CACHE_TIME = 10 * 60 * 1000
+
 const cache = new LRUCache({
     max: 300,
-    ttl: 1000 * 60 * 10
+    ttl: CACHE_TIME
 })
 
 // helper to init API
-const CACHE_TIME = 3 * 60 * 1000
 let api, stamp
 const getApi = () => {
     const isExpired = new Date().getTime() - stamp > CACHE_TIME
@@ -269,6 +270,9 @@ export const fetchByType = async ops => {
 
         // if slug was specified
         if (settings.slug) {
+            // invalid slug
+            if (/\.|\{/.test(settings.slug)) return false
+
             const key = `uid-${settings.type}-${settings.slug}`
             let artist = cache.get(key)
             if (!artist) {

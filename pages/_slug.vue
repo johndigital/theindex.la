@@ -13,13 +13,6 @@ import _get from 'lodash/get'
 
 export default {
     async fetch({ store, params, error }) {
-        const slug = String(params.slug)
-
-        // Rule out invalid URLs
-        if (slug.includes('.') || slug.includes('{')) {
-            return error({ statusCode: 404, message: 'Page not found' })
-        }
-
         const page = await fetchByType({
             type: 'page',
             slug: params.slug
@@ -28,12 +21,10 @@ export default {
         // 404
         if (!page) return error({ statusCode: 404, message: 'Page not found' })
 
-        if (page) {
-            store.commit('SET_PAGE_DATA', {
-                key: `pages/${params.slug}`,
-                data: page
-            })
-        }
+        store.commit('SET_PAGE_DATA', {
+            key: `pages/${params.slug}`,
+            data: page
+        })
     },
     head() {
         return {

@@ -34,18 +34,19 @@ import { fetchByType, fetchNextDocument } from '~/libs/prismic'
 import _get from 'lodash/get'
 
 export default {
-    async fetch({ store, params, query }) {
+    async fetch({ store, params, error }) {
         const story = await fetchByType({
             type: 'feature',
             slug: params.slug
         })
-        if (story) {
-            // add to vuex
-            store.commit('SET_PAGE_DATA', {
-                key: `features/${params.slug}`,
-                data: story
-            })
-        }
+
+        // 404
+        if (!story) return error({ statusCode: 404, message: 'Page not found' })
+
+        store.commit('SET_PAGE_DATA', {
+            key: `features/${params.slug}`,
+            data: story
+        })
     },
     watch: {
         linkColor: 'setLinkColor',
