@@ -20,17 +20,20 @@ const resolver = doc => {
         return doc.url
     }
 
+    // About is home
+    if (slug == 'about') return '/'
+
     // filter links
     if (doc.type === 'type') {
-        return `/?type=${slug}`
+        return `/archive?type=${slug}`
     }
 
     if (doc.type === 'category') {
-        return `/?category=${slug}`
+        return `/archive?category=${slug}`
     }
 
     if (doc.type === 'city') {
-        return `/?city=${slug}`
+        return `/archive?city=${slug}`
     }
 
     // artist
