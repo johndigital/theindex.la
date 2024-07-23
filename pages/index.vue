@@ -74,7 +74,7 @@ export default {
             color: $black;
         }
         a {
-            color: $dark-gray;
+            // color: $dark-gray;
 
             &:hover {
                 color: $black;
