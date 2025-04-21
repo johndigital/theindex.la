@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { fetchByQs } from '~/libs/prismic'
+import { fetchByQs } from '~/libs/prismic/offline'
 import _isEmpty from 'lodash/isEmpty'
 import _get from 'lodash/get'
 
