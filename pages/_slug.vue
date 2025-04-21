@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { fetchByType } from '~/libs/prismic'
+import { fetchByType } from '~/libs/prismic/offline'
 import _get from 'lodash/get'
 
 export default {

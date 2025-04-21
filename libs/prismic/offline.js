@@ -103,33 +103,33 @@ export const fetchByQs = async ({ query, pageSize, page }) => {
         // filter categories
         const catIDs = getDimensionIDs(query, 'category')
         if (catIDs.length) {
-            search.$and.push({
-                categories: catIDs.map(c => '=' + c).join(' ')
-            })
+            search.$and = search.$and.concat(
+                catIDs.map(c => ({ categories: '=' + c }))
+            )
         }
 
         // filter types
         const typeIDs = getDimensionIDs(query, 'type')
         if (typeIDs.length) {
-            search.$and.push({
-                types: typeIDs.map(t => '=' + t).join(' ')
-            })
+            search.$and = search.$and.concat(
+                typeIDs.map(t => ({ types: '=' + t }))
+            )
         }
 
         // filter cities
         const cityIDs = getDimensionIDs(query, 'city')
         if (cityIDs.length) {
-            search.$and.push({
-                city: cityIDs.map(c => '=' + c).join(' ')
-            })
+            search.$and = search.$and.concat(
+                cityIDs.map(c => ({ city: '=' + c }))
+            )
         }
 
         // filter regions
         const regionIDs = getDimensionIDs(query, 'region')
         if (regionIDs.length) {
-            search.$and.push({
-                region: regionIDs.map(c => '=' + c).join(' ')
-            })
+            search.$and = search.$and.concat(
+                regionIDs.map(r => ({ region: '=' + r }))
+            )
         }
 
         // query results
@@ -173,32 +173,24 @@ export const fetchNextDocument = async ops => {
 
         // make sure we have a document
         if (settings.doc) {
-            const key = `next-${JSON.stringify(ops)}`
-            if (cache.has(key)) return cache.get(key)
+            const stamp = docTime(settings.doc)
 
-            const stamp =
-                settings.doc.data.timestamp ||
-                settings.doc.first_publication_date
-
-            if (!stamp) {
-                cache.set(key, null)
-                return null
+            const search = {
+                type: `=${settings.type}`
             }
-            const predicates = [
-                Prismic.Predicates.at('document.type', settings.type),
-                Prismic.Predicates.dateBefore('my.feature.timestamp', stamp)
-            ]
-            log('Hitting Pris API, fetch next doc')
-            const { results } = await api.query(predicates, {
-                pageSize: 1,
-                orderings: '[my.feature.timestamp desc]'
-            })
+
+            const results = api
+                .search(search)
+                .map(({ item }) => item)
+                .sort((a, b) => {
+                    return docTime(b) - docTime(a)
+                })
+                .filter(doc => {
+                    return docTime(doc) < stamp
+                })
 
             // success? return
-            if (results && results.length) {
-                cache.set(key, results[0])
-                return results[0]
-            }
+            if (results && results.length) return results[0]
         }
 
         return null
@@ -215,39 +207,35 @@ export const fetchRelated = async doc => {
 
         // make sure we have a document
         if (doc) {
-            const key = `related-${doc.id}`
-            let results = cache.get(key)
+            // map IDs into array
+            let catIDs = doc.data.categories
+                .map(cat => {
+                    return _get(cat, 'category.id')
+                })
+                .filter(Boolean)
 
-            if (!results) {
-                // map IDs into array
-                let catIDs = doc.data.categories
-                    .map(cat => {
-                        return _get(cat, 'category.id')
-                    })
-                    .filter(Boolean)
-
-                // build query
-                let predicates = [
-                    Prismic.Predicates.at('document.type', doc.type),
-                    Prismic.Predicates.not('document.id', doc.id),
-                    Prismic.Predicates.any(
-                        `my.${doc.type}.categories.category`,
-                        catIDs
-                    )
+            const search = {
+                $and: [
+                    { type: `=${doc.type}` },
+                    { id: `!${doc.id}` },
+                    {
+                        $or: catIDs.map(cat => {
+                            return { categories: `=${cat}` }
+                        })
+                    }
                 ]
-
-                // run query
-                log('Hitting Pris API, fetch related')
-                results = await api
-                    .query(predicates, {
-                        pageSize: 6,
-                        orderings: '[my.feature.timestamp desc]'
-                    })
-                    .then(r => r.results)
-                cache.set(key, results)
             }
 
-            // return results filtered by
+            // run query
+            const results = await api
+                .search(search)
+                .map(({ item }) => item)
+                .sort((a, b) => {
+                    return docTime(b) - docTime(a)
+                })
+                .slice(0, 6)
+
+            // return results
             return results
         }
 
@@ -267,49 +255,53 @@ export const fetchByType = async ops => {
             {
                 type: 'page',
                 slug: '',
-                pageSize: 40,
+                pageSize: 50,
                 page: 1,
                 orderings: ''
             },
             ops
         )
 
-        const predicates = [
-            Prismic.Predicates.at('document.type', settings.type)
-        ]
+        const search = {
+            $and: [{ type: `=${settings.type}` }]
+        }
 
         // if slug was specified
         if (settings.slug) {
             // invalid slug
             if (/\.|\{/.test(settings.slug)) return false
 
-            const key = `uid-${settings.type}-${settings.slug}`
-            if (!cache.has(key)) {
-                log(`Hitting Pris, type-slug ${settings.type}-${settings.slug}`)
-                log('cache size: ', cache.itemCount)
-                const doc = await api.getByUID(settings.type, settings.slug)
-                cache.set(key, doc)
-            }
-            return cache.get(key)
+            search.$and.push({
+                uid: `=${settings.slug}`
+            })
+
+            const foundDoc = api
+                .search(search, {
+                    useExtendedSearch: true
+                })
+                .map(({ item }) => item)[0]
+
+            return foundDoc
         }
 
-        // run query
-        const qOps = {
-            pageSize: settings.pageSize,
-            page: settings.page,
-            orderings: settings.orderings
-        }
-        const key = JSON.stringify({ predicates, qOps })
-        let qResults = cache.get(key)
-        if (!qResults) {
-            log('Hitting Pris API, fetch by type no slug')
-            qResults = await api.query(predicates, qOps)
-            cache.set(key, qResults)
-        }
-        let { results } = qResults
+        // query results
+        const results = api
+            .search(search, {
+                findAllMatches: true,
+                useExtendedSearch: true
+            })
+            .map(({ item }) => item)
+            .sort((a, b) => {
+                return docTime(b) - docTime(a)
+            })
 
-        return results
+        // paginate
+        return results.slice(
+            (settings.page - 1) * settings.pageSize,
+            settings.page * settings.pageSize
+        )
     } catch (err) {
+        console.log('error fetching by type', err)
         return []
     }
 }
