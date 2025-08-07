@@ -31,6 +31,7 @@
     "dependencies": {
         "@prismicio/client": "^7.17.2",
         "body-parser": "^1.18.3",
+        "cross-fetch": "^4.1.0",
         "dotenv": "^6.2.0",
         "fh-components": "^1.4.11",
         "fontfaceobserver": "^2.0.13",

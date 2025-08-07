@@ -61,3 +61,6 @@ public
 
 # dotenv environment variables file
 .env
+
+# prismic image download cache
+static/prismic-images/

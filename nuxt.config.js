@@ -38,7 +38,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 module.exports = {
     env: {
-        prismicUrl: 'https://index-la.prismic.io/api/v2'
+        // prismicUrl: 'https://index-la.prismic.io/api/v2'
     },
     head: {
         title: 'Index',
@@ -65,10 +65,8 @@ module.exports = {
             }
         ],
         link: [
-            // { rel: 'apple-touch-icon', href: '/images/favicon.ico' },
-            { id: 'fav', rel: 'shortcut icon', href: '/images/favicon.png' },
-            { rel: 'stylesheet', href: '/fonts/fonts.css' },
-            { rel: 'author', href: `/humans.txt` }
+            { id: 'fav', rel: 'shortcut icon', href: './images/favicon.png' },
+            { rel: 'stylesheet', href: './fonts/fonts.css' }
         ]
     },
     transition: {
@@ -78,20 +76,24 @@ module.exports = {
     build: {
         vendor: ['lodash/get', 'lodash/throttle', 'popmotion']
     },
+    // mode: 'spa',
     generate: {
         // routes: require('./bin/generateRoutes').default,
         dir: 'dist',
-        fallback: '404.html'
+        // fallback: '404.html',
+        fallback: 'index.html'
     },
     loading: false,
     css: ['@/assets/scss/_base.scss'],
     plugins: [
         { src: '~/plugins/browser', ssr: false },
-        { src: '~/plugins/ga', ssr: false },
+        // { src: '~/plugins/ga', ssr: false },
         '~/plugins/bootstrap'
     ],
     router: {
-        scrollBehavior
-    },
-    serverMiddleware: ['~/api', '~/server-middleware/ip-block']
+        scrollBehavior,
+        mode: 'hash',
+        base: './'
+    }
+    // serverMiddleware: ['~/api', '~/server-middleware/ip-block']
 }
