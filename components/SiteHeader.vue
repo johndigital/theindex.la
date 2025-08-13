@@ -55,10 +55,10 @@ export default {
             return ['artist-slug', 'stories-slug'].includes(this.$route.name)
         },
         hasGridToggle() {
-            return this.$route.name == 'archive'
+            return this.$route.name == 'index'
         },
         hasSidebar() {
-            return this.$route.name == 'archive'
+            return this.$route.name == 'index'
         },
         colorTheme() {
             if (this.isFeatureStory) {
