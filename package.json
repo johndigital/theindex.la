@@ -10,9 +10,6 @@
         "start": "nuxt start",
         "heroku-postbuild": "npm run build"
     },
-    "engines": {
-        "node": "10.16.3"
-    },
     "prettier": {
         "tabWidth": 4,
         "semi": false,
@@ -29,7 +26,6 @@
     "license": "ISC",
     "homepage": "https://theindex.la",
     "dependencies": {
-        "@prismicio/client": "^7.17.2",
         "body-parser": "^1.18.3",
         "cross-fetch": "^4.1.0",
         "dotenv": "^6.2.0",
@@ -53,6 +49,7 @@
         "url-parse": "^1.4.4"
     },
     "devDependencies": {
+        "@prismicio/client": "^7.17.2",
         "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "babel-register": "^6.26.0",

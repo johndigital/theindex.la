@@ -14,7 +14,7 @@ const urlToLocalPath = url => {
     // Determine where it will go
     const hashedUrl = hash(url)
     const ext = path.extname(url).split('?')[0] // remove query params
-    return `./prismic-images/${hashedUrl}${ext}`
+    return `/prismic-images/${hashedUrl}${ext}`
 }
 
 export default img => {

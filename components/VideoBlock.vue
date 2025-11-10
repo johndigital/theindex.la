@@ -10,7 +10,7 @@
                 class="video-placeholder"
             >
                 <img
-                    src="../static/images/playicon.png"
+                    src="/images/playicon.png"
                     height="60px"
                     width="60px"
                     alt="play"
