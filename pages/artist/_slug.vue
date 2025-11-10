@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { fetchByType, fetchRelated } from '~/libs/prismic'
+import { fetchByType, fetchRelated } from '~/libs/prismic/offline'
 import _get from 'lodash/get'
 
 export default {

@@ -37,9 +37,6 @@ const scrollBehavior = (to, from, savedPosition) => {
 }
 
 module.exports = {
-    env: {
-        prismicUrl: 'https://index-la.prismic.io/api/v2'
-    },
     head: {
         title: 'Index',
         meta: [
@@ -65,10 +62,8 @@ module.exports = {
             }
         ],
         link: [
-            // { rel: 'apple-touch-icon', href: '/images/favicon.ico' },
             { id: 'fav', rel: 'shortcut icon', href: '/images/favicon.png' },
-            { rel: 'stylesheet', href: '/fonts/fonts.css' },
-            { rel: 'author', href: `/humans.txt` }
+            { rel: 'stylesheet', href: '/fonts/fonts.css' }
         ]
     },
     transition: {
@@ -76,10 +71,13 @@ module.exports = {
         mode: 'out-in'
     },
     build: {
-        vendor: ['lodash/get', 'lodash/throttle', 'popmotion']
+        vendor: ['lodash/get', 'lodash/throttle', 'popmotion'],
+        loaders: {
+            css: { modules: false },
+            scss: { modules: false }
+        }
     },
     generate: {
-        // routes: require('./bin/generateRoutes').default,
         dir: 'dist',
         fallback: '404.html'
     },
@@ -87,11 +85,11 @@ module.exports = {
     css: ['@/assets/scss/_base.scss'],
     plugins: [
         { src: '~/plugins/browser', ssr: false },
-        { src: '~/plugins/ga', ssr: false },
+        // { src: '~/plugins/ga', ssr: false }, // Google Analytics
         '~/plugins/bootstrap'
     ],
     router: {
         scrollBehavior
-    },
-    serverMiddleware: ['~/api', '~/server-middleware/ip-block']
+    }
+    // serverMiddleware: ['~/api', '~/server-middleware/ip-block'] // Server functionality (when it was hosted on Heroku)
 }

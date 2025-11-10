@@ -12,17 +12,17 @@ import { fetchByType } from '~/libs/prismic/offline'
 import _get from 'lodash/get'
 
 export default {
-    async fetch({ store, params, error }) {
+    async fetch({ store, error }) {
         const page = await fetchByType({
             type: 'page',
-            slug: params.slug
+            slug: 'about'
         })
 
         // 404
         if (!page) return error({ statusCode: 404, message: 'Page not found' })
 
         store.commit('SET_PAGE_DATA', {
-            key: `pages/${params.slug}`,
+            key: `pages/about`,
             data: page
         })
     },
@@ -33,10 +33,7 @@ export default {
     },
     computed: {
         pageData() {
-            return _get(
-                this.$store.state,
-                `pageData[pages/${this.$route.params.slug}]`
-            )
+            return _get(this.$store.state, `pageData[pages/about]`)
         },
         title() {
             const titleData = _get(this.pageData, 'data.title')

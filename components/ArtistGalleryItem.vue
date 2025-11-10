@@ -34,15 +34,7 @@ export default {
                 return this.$options.filters.prisToRezImg(this.item.item_image)
             }
             if (_get(this.item, 'image.url')) {
-                return {
-                    sizes: {
-                        fullscreen: {
-                            url: this.item.image.url,
-                            height: Number(this.item.image.height),
-                            width: Number(this.item.image.width)
-                        }
-                    }
-                }
+                return this.$options.filters.prisToRezImg(this.item.image)
             }
             return null
         },

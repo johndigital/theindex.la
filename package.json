@@ -10,9 +10,6 @@
         "start": "nuxt start",
         "heroku-postbuild": "npm run build"
     },
-    "engines": {
-        "node": "10.16.3"
-    },
     "prettier": {
         "tabWidth": 4,
         "semi": false,
@@ -30,9 +27,11 @@
     "homepage": "https://theindex.la",
     "dependencies": {
         "body-parser": "^1.18.3",
+        "cross-fetch": "^4.1.0",
         "dotenv": "^6.2.0",
         "fh-components": "^1.4.11",
         "fontfaceobserver": "^2.0.13",
+        "fuse.js": "^7.1.0",
         "googleapis": "^36.0.0",
         "headroom.js": "^0.9.4",
         "json-csv": "^2.0.3",
@@ -50,6 +49,7 @@
         "url-parse": "^1.4.4"
     },
     "devDependencies": {
+        "@prismicio/client": "^7.17.2",
         "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "babel-register": "^6.26.0",

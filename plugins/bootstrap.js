@@ -1,4 +1,4 @@
-import { fetchByType } from '~/libs/prismic'
+import { fetchByType } from '~/libs/prismic/offline'
 import _kebabCase from 'lodash/kebabCase'
 import _camelCase from 'lodash/camelCase'
 import _get from 'lodash/get'

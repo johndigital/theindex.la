@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { fetchByType, fetchNextDocument } from '~/libs/prismic'
+import { fetchByType, fetchNextDocument } from '~/libs/prismic/offline'
 import _get from 'lodash/get'
 
 export default {

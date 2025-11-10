@@ -21,19 +21,19 @@ const resolver = doc => {
     }
 
     // About is home
-    if (slug == 'about') return '/'
+    if (slug == 'about') return '/about'
 
     // filter links
     if (doc.type === 'type') {
-        return `/archive?type=${slug}`
+        return `/?type=${slug}`
     }
 
     if (doc.type === 'category') {
-        return `/archive?category=${slug}`
+        return `/?category=${slug}`
     }
 
     if (doc.type === 'city') {
-        return `/archive?city=${slug}`
+        return `/?city=${slug}`
     }
 
     // artist
