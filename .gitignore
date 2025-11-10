@@ -64,3 +64,5 @@ public
 
 # prismic image download cache
 static/prismic-images/
+
+.npmrc
