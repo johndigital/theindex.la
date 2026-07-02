@@ -55,10 +55,11 @@
         "babel-register": "^6.26.0",
         "css-loader": "^1.0.1",
         "fs-extra": "^7.0.1",
-        "sass": "~1.32.13",
         "node-zip": "^1.1.1",
         "prettier": "^1.15.3",
+        "sass": "~1.32.13",
         "sass-loader": "^7.1.0",
-        "vue-style-loader": "^4.1.2"
+        "vue-style-loader": "^4.1.2",
+        "wrangler": "^4.107.0"
     }
 }

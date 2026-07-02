@@ -2,13 +2,13 @@ import _get from 'lodash/get'
 
 const resolver = doc => {
     if (doc == undefined) {
-        return '/not-found'
+        return '/#not-found'
     }
 
     const slug = doc.uid || doc.slug || _get(doc, 'slugs[0]')
 
     if (doc.isBroken) {
-        return '/not-found'
+        return '/#not-found'
     }
 
     // external link
@@ -51,7 +51,7 @@ const resolver = doc => {
         return `/stories/${slug}`
     }
 
-    return '/not-found'
+    return '/#not-found'
 }
 
 export default resolver
